@@ -1,5 +1,6 @@
-Python for Data Engineering Roadmap
+Python for Data Engineering
 
+```
 Module 0: Computer Fundamentals
 │
 ├── How programs work
@@ -182,3 +183,4 @@ Module 16: Job Preparation
 ├── Real ETL Projects
 ├── Portfolio
 └── Resume Preparation
+```
