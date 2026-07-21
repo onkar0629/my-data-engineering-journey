@@ -232,3 +232,11 @@ Because Python executes code line by line using an interpreter.
 ### Why is Python called a General-Purpose Programming Language?
 
 Because it supports multiple programming paradigms and can be used to build many different types of applications.
+
+---
+
+## Navigation
+
+🏠 **Home:** [Python Roadmap](https://github.com/onkar0629/my-data-engineering-journey/tree/main/Python/Daily-Learning)
+
+➡️ **Next:** [Day 02 - Python Tokens and Variables](https://github.com/onkar0629/my-data-engineering-journey/blob/main/Python/Daily-Learning/Day_02_Python_Tokens_and_Variables/readme.md)
