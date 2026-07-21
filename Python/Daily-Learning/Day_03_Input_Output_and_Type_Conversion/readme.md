@@ -369,7 +369,7 @@ print("Average:", average)
 
 ## Navigation
 
-🏠 **Home:** [Python Daily Learning Journey]](https://github.com/onkar0629/my-data-engineering-journey/tree/main/Python/Daily-Learning)
+🏠 **Home:** [Python Daily Learning Journey](https://github.com/onkar0629/my-data-engineering-journey/tree/main/Python/Daily-Learning)
 
 ⬅️ **Previous:** [Day 02 - Python Tokens and Variables](https://github.com/onkar0629/my-data-engineering-journey/blob/main/Python/Daily-Learning/Day_02_Python_Tokens_and_Variables/readme.md)
 
