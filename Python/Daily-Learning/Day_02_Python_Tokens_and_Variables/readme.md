@@ -630,17 +630,12 @@ Explanation:
                                 quotient (floor).
   -----------------------------------------------------------------------
 
-
 ---
 
-# Key Takeaways
+## Navigation
 
-- Tokens are the building blocks of every Python program.
-- Literals represent fixed values.
-- Variables store data in memory.
-- Identifiers are user-defined names.
-- Keywords are reserved words and cannot be used as identifiers.
-- Operators perform operations on values.
-- Follow Python naming conventions to write clean and readable code.
+🏠 **Home:** [Python Roadmap](https://github.com/onkar0629/my-data-engineering-journey/tree/main/Python/Daily-Learning)
 
----
+⬅️ **Previous:** [Day 01 - Introduction to Python](https://github.com/onkar0629/my-data-engineering-journey/blob/main/Python/Daily-Learning/Day_01_Introduction_to_Python/README.md)
+
+➡️ **Next:** [Day 03 - Input, Output and Type Conversion](https://github.com/onkar0629/my-data-engineering-journey/blob/main/Python/Daily-Learning/Day_03_Input_Output_and_Type_Conversion/README.md)
