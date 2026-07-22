@@ -860,7 +860,7 @@ This is where **OLTP** and **OLAP** come into the picture.
 
 ---
 
-# 📌 What is OLTP?
+#  What is OLTP?
 
 **OLTP** stands for **Online Transaction Processing**.
 
@@ -883,7 +883,7 @@ These systems are used in day-to-day business operations where data is continuou
 
 ## Real-World Examples
 
-### 🏦 Banking
+###  Banking
 
 Every time you:
 
@@ -895,7 +895,7 @@ a transaction is recorded immediately.
 
 ---
 
-### 🛒 Amazon
+###  Amazon
 
 When a customer:
 
@@ -908,7 +908,7 @@ the OLTP system records these transactions instantly.
 
 ---
 
-### 🚖 Uber
+###  Uber
 
 When you book a ride:
 
@@ -921,7 +921,7 @@ Every step is a transaction handled by an OLTP database.
 
 ---
 
-# 📌 What is OLAP?
+#  What is OLAP?
 
 **OLAP** stands for **Online Analytical Processing**.
 
@@ -975,7 +975,7 @@ Questions answered by OLAP:
 
 ---
 
-# 📊 OLTP vs OLAP Comparison
+#  OLTP vs OLAP Comparison
 
 | Feature | OLTP | OLAP |
 |----------|------|------|
@@ -991,7 +991,7 @@ Questions answered by OLAP:
 
 ---
 
-> **💡 Interview Tip**
+> ** Interview Tip**
 >
 > **OLTP stores data**, while **OLAP analyzes data**.
 >
@@ -999,7 +999,7 @@ Questions answered by OLAP:
 
 ---
 
-# 📌 Row-Oriented vs Column-Oriented Database
+#  Row-Oriented vs Column-Oriented Database
 
 Databases store data physically on disk.
 
@@ -1012,7 +1012,7 @@ There are two major storage formats:
 
 ---
 
-# 📌 Row-Oriented Database
+#  Row-Oriented Database
 
 A Row-Oriented Database stores **an entire row together**.
 
@@ -1066,7 +1066,7 @@ Row 2
 
 ---
 
-# 📌 Column-Oriented Database
+#  Column-Oriented Database
 
 Instead of storing complete rows, a Column-Oriented Database stores values of the same column together.
 
@@ -1125,7 +1125,7 @@ Salary
 
 ---
 
-# 📊 Row Store vs Column Store
+#  Row Store vs Column Store
 
 | Feature | Row Store | Column Store |
 |----------|-----------|--------------|
@@ -1138,7 +1138,7 @@ Salary
 
 ---
 
-# 🐬 MySQL Overview
+#  MySQL Overview
 
 ## What is MySQL?
 
@@ -1182,7 +1182,7 @@ It is one of the world's most popular database systems because it is:
 
 ---
 
-# 🏗 MySQL Client–Server Architecture
+#  MySQL Client–Server Architecture
 
 MySQL follows the **Client–Server Architecture**.
 
@@ -1261,7 +1261,7 @@ Responsible for:
 
 ---
 
-# 📌 Database vs Schema
+#  Database vs Schema
 
 One of the most confusing topics for beginners is the difference between a **Database** and a **Schema**.
 
@@ -1335,7 +1335,7 @@ Company Database
 
 ---
 
-# 🛠 Basic Database Commands
+#  Basic Database Commands
 
 These are the first SQL commands every beginner should know.
 
@@ -1370,7 +1370,7 @@ DROP DATABASE company;
 
 ---
 
-# ⚙ SQL Execution Flow (Where Applicable)
+#  SQL Execution Flow (Where Applicable)
 
 Unlike a `SELECT` query, database management commands such as:
 
@@ -1423,7 +1423,7 @@ Unlike complex `SELECT` statements, these commands do not involve filtering, gro
 
 ---
 
-# 🌍 Data Engineering Perspective
+#  Data Engineering Perspective
 
 In a modern data platform, databases are the foundation of every data pipeline.
 
