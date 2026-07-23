@@ -1,0 +1,16 @@
+employee_id,employee_name,gender,department,designation,salary,joining_date,city
+101,Aarav Sharma,Male,IT,Software Engineer,65000,2021-03-15,Pune
+102,Priya Patel,Female,HR,HR Executive,48000,2022-07-10,Mumbai
+103,Rohan Verma,Male,Finance,Accountant,55000,2020-11-22,Delhi
+104,Neha Joshi,Female,Marketing,Marketing Executive,52000,2023-01-18,Bengaluru
+105,Vikram Singh,Male,Sales,Sales Executive,47000,2021-09-05,Ahmedabad
+106,Ananya Gupta,Female,IT,Senior Software Engineer,82000,2019-06-30,Pune
+107,Karan Mehta,Male,Operations,Operations Executive,51000,2022-04-14,Hyderabad
+108,Sneha Kulkarni,Female,Finance,Financial Analyst,61000,2021-12-01,Mumbai
+109,Rahul Nair,Male,Support,Support Engineer,43000,2023-08-20,Kochi
+110,Isha Kapoor,Female,IT,System Analyst,72000,2020-02-17,Delhi
+111,Aditya Rao,Male,Marketing,Marketing Manager,76000,2018-10-25,Bengaluru
+112,Pooja Desai,Female,HR,HR Manager,69000,2019-05-12,Ahmedabad
+113,Manish Yadav,Male,Sales,Sales Manager,78000,2017-08-08,Jaipur
+114,Kavya Reddy,Female,Operations,Operations Manager,73000,2021-01-28,Hyderabad
+115,Arjun Mishra,Male,Finance,Senior Accountant,68000,2020-09-16,Lucknow

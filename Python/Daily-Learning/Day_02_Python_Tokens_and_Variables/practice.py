@@ -329,14 +329,16 @@ print(name)
 #
 # Explain the difference between:
 #
-# Literal
-# Variable
-# Identifier
+# Literal  are the fixed values
+# Variable : are the named memory location in which we store data
+# Identifier : identifiers are the given names to variables , classes , functions
 
 # Q37.
 #
 # Why can't Python keywords be used
 # as variable names?
+
+# because python will read variable as keyword and may perform the operation as keyword which will through and error
 
 # Q38.
 #
@@ -348,6 +350,9 @@ print(name)
 #
 # //
 
+# / will return answer in decimal
+# // will return value in integer
+
 # Q39.
 #
 # Explain the difference between:
@@ -358,10 +363,17 @@ print(name)
 #
 # 20 % 3
 
+# 20 / 3 returns the quotient as a floating-point number.
+# Output: 6.666666666666667
+
+# 20 % 3 returns the remainder after division.
+# Output: 2
+
 # Q40.
 #
 # Why should variable names be meaningful?
 
+#because we call variable in the program
 
 # ============================================================
 # Section 8 : Self-Learning
