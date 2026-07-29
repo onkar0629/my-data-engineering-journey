@@ -1,758 +1,401 @@
-# Day 02 - DDL Commands
+# Day 02 - DDL (Data Definition Language)
 
-> **Course:** SQL for Data Engineering
+> Welcome to **Day 02** of my MySQL learning journey.
 >
-> **Chapter:** Day 02 - DDL Commands
+> In Day 01, we learned the fundamentals of databases and MySQL. Now it's time to start writing SQL commands.
 >
-> **Prerequisite:** Day 01 - Database Basics
+> In this chapter, we will learn **Data Definition Language (DDL)**, which is used to create and manage the structure of database objects such as databases, tables, and columns.
 
 ---
 
-# 🎯 Learning Objectives
+# Learning Objectives
 
-After completing this chapter, you will be able to:
+By the end of this chapter, you will be able to:
 
-- Understand what SQL is and why it is important.
-- Explain the history and evolution of SQL.
-- Understand the different categories of SQL commands.
-- Differentiate between DDL, DML, DQL, DCL, and TCL.
-- Understand CRUD operations and their relationship with SQL.
-- Explain what Data Definition Language (DDL) is.
-- Understand how DDL is used in database design.
-- Recognize where DDL commands are used in real-world applications and Data Engineering.
+- Understand what DDL is
+- Learn why DDL is important
+- Understand the characteristics of DDL
+- Create tables in MySQL
+- Modify existing tables
+- Rename tables
+- Delete tables
+- Remove all records from a table using `TRUNCATE`
+- View table structure
+- Display all tables in a database
+- Understand the difference between DDL and DML
 
 ---
 
-# 📖 Introduction
+# Table of Contents
 
-In **Day 01**, we learned what databases are, why they are important, and how they are used to store information.
+1. Data Definition Language (DDL)
+2. CREATE TABLE
+3. ALTER TABLE
+4. RENAME TABLE
+5. TRUNCATE TABLE
+6. DROP TABLE
+7. DESCRIBE / DESC
+8. SHOW TABLES
+9. DDL vs DML
+10. Summary
+11. Best Practices
+12. Common Mistakes
+13. Interview Questions
+14. Key Takeaways
+15. What's Next?
 
-However, before we can store any data, we first need to create the structure that will hold it.
+---
 
-Think of constructing a new apartment building.
+# 1. Data Definition Language (DDL)
 
-Before people can move in, engineers must first:
+## What is DDL?
 
-- Design the building
-- Construct the rooms
-- Number each apartment
-- Build doors and windows
+**Data Definition Language (DDL)** is a category of SQL commands used to **define, create, modify, and remove the structure of database objects**.
 
-Only after the structure is ready can people start living there.
+DDL commands work on the **structure (schema)** of a database rather than the data stored inside it.
 
-Databases work in exactly the same way.
-
-Before inserting any records, we must first create the database objects such as:
+Database objects include:
 
 - Databases
 - Tables
 - Columns
-- Views
+- Constraints
 - Indexes
+- Views (in some database systems)
 
-The SQL commands responsible for creating and modifying these objects belong to **Data Definition Language (DDL)**.
-
-This chapter introduces SQL and explains the command categories before focusing on DDL commands.
+> [!IMPORTANT]
+> DDL commands modify the **structure** of database objects, not the actual records stored inside them.
 
 ---
 
-# 📌 What is SQL?
+## Why Do We Need DDL?
 
-**SQL** stands for **Structured Query Language**.
+Before storing any data, we first need to create a proper database structure.
 
-It is the standard language used to communicate with **Relational Database Management Systems (RDBMS)**.
-
-Using SQL, we can:
+DDL allows us to:
 
 - Create databases
 - Create tables
-- Insert data
-- Retrieve data
-- Update records
-- Delete records
-- Control user permissions
-- Manage transactions
-
-SQL is supported by almost every relational database system, making it one of the most valuable technical skills in software development and data engineering.
-
-> **Definition**
->
-> SQL is a standardized language used to define, manipulate, retrieve, and manage data stored in relational databases.
-
----
-
-## Why Do We Need SQL?
-
-Imagine a company stores millions of customer records.
-
-Without SQL:
-
-- Finding a specific customer would be difficult.
-- Updating records would require manual work.
-- Generating reports would take hours.
-- Managing large amounts of data would become inefficient.
-
-SQL provides a simple and standardized way to perform all of these operations.
-
-Instead of searching through files manually, we simply write SQL queries.
-
----
-
-## What Can SQL Do?
-
-SQL allows us to perform various operations on databases.
-
-Some common tasks include:
-
-| Operation | Example |
-|-----------|----------|
-| Create Database | Create a new database |
-| Create Table | Design a table structure |
-| Insert Data | Add new records |
-| Retrieve Data | Search and display records |
-| Update Data | Modify existing records |
-| Delete Data | Remove records |
-| Manage Users | Grant or revoke permissions |
-| Manage Transactions | Commit or rollback changes |
-
----
-
-# 📜 History of SQL
-
-SQL has been around for more than four decades and continues to be the most widely used database language.
-
-## Timeline
-
-| Year | Event |
-|------|-------|
-| 1970 | Dr. Edgar F. Codd proposed the Relational Model. |
-| 1974 | IBM developed SEQUEL (Structured English Query Language). |
-| 1979 | Oracle released the first commercial SQL database. |
-| 1986 | ANSI adopted SQL as a standard. |
-| 1987 | ISO approved SQL as an international standard. |
-| Today | SQL is supported by almost every major relational database system. |
-
----
-
-## Why Did SQL Become the Industry Standard?
-
-SQL became popular because it is:
-
-- Easy to learn
-- Human-readable
-- Powerful
-- Portable
-- Standardized
-- Reliable
-
-Today, SQL is used in:
-
-- Banking
-- Healthcare
-- E-Commerce
-- Education
-- Manufacturing
-- Government
-- Telecommunications
-- Data Engineering
-- Business Intelligence
-- Data Analytics
-
----
-
-# 💼 Why Should a Data Engineer Learn SQL?
-
-SQL is one of the most frequently used languages in Data Engineering.
-
-A Data Engineer spends a significant amount of time interacting with databases.
-
-Typical responsibilities include:
-
-- Extracting data
-- Cleaning raw data
-- Transforming data
-- Loading data into data warehouses
-- Validating data quality
-- Creating staging tables
-- Designing schemas
-- Optimizing SQL queries
-
-Whether you work with:
-
-- Azure
-- AWS
-- Google Cloud
-
-or modern data warehouses like:
-
-- Snowflake
-- Amazon Redshift
-- Google BigQuery
-
-SQL remains one of the core skills required.
-
-> **Note**
->
-> Many Data Engineering interviews focus heavily on SQL because it is used daily in production environments.
-
----
-
-# 📚 Types of SQL Commands
-
-SQL commands are grouped into categories based on the type of operation they perform.
-
-```text
-                      SQL
-                       │
-        ┌──────────────┼──────────────┐
-        │              │              │
-       DDL            DML            DQL
-        │              │              │
-        └──────────────┼──────────────┘
-                       │
-                 ┌─────┴─────┐
-                 │           │
-                DCL         TCL
-```
-
-There are **five major categories** of SQL commands.
-
-| Category | Full Form | Purpose |
-|----------|-----------|---------|
-| DDL | Data Definition Language | Defines database structure |
-| DML | Data Manipulation Language | Modifies data |
-| DQL | Data Query Language | Retrieves data |
-| DCL | Data Control Language | Controls user permissions |
-| TCL | Transaction Control Language | Manages transactions |
-
-Let's understand each category in detail.
-
----
-
-# 🏗 Data Definition Language (DDL)
-
-## Definition
-
-**Data Definition Language (DDL)** consists of SQL commands used to create and manage the structure of database objects.
-
-DDL focuses on **how data is organized**, not on the actual data stored inside tables.
-
-Using DDL, we can:
-
-- Create databases
-- Create tables
-- Modify table structures
+- Define columns
+- Specify data types
+- Add or remove columns
 - Rename database objects
-- Delete database objects
+- Delete database objects when they are no longer required
+
+Without DDL, there would be no structure to store data.
 
 ---
 
-## Common DDL Commands
-
-| Command | Purpose |
-|----------|---------|
-| CREATE | Creates a new database object |
-| ALTER | Modifies an existing object |
-| DROP | Deletes an object permanently |
-| TRUNCATE | Removes all rows from a table |
-| RENAME | Changes the name of an object |
-
----
-
-## Example
-
-```sql
-CREATE TABLE employees (
-    employee_id INT,
-    employee_name VARCHAR(100),
-    salary DECIMAL(10,2)
-);
-```
-
-The above statement creates a table named `employees`.
-
-Notice that no data is inserted.
-
-We are only defining the structure of the table.
-
----
-
-# ✏️ Data Manipulation Language (DML)
-
-## Definition
-
-**Data Manipulation Language (DML)** consists of SQL commands used to work with the data stored inside tables.
-
-Unlike DDL, DML does not change the table structure.
-
-Instead, it changes the contents of the table.
-
----
-
-## Common DML Commands
-
-| Command | Purpose |
-|----------|---------|
-| INSERT | Adds new records |
-| UPDATE | Modifies existing records |
-| DELETE | Removes records |
-
----
-
-## Example
-
-```sql
-INSERT INTO employees
-VALUES (101, 'Rahul', 50000);
-```
-
-This command inserts a new record into the `employees` table.
-
----
-
-# 🔍 Data Query Language (DQL)
-
-## Definition
-
-**Data Query Language (DQL)** is used to retrieve information from one or more tables.
-
-The primary command in DQL is:
-
-- `SELECT`
-
----
-
-## Example
-
-```sql
-SELECT *
-FROM employees;
-```
-
-This query retrieves every row from the `employees` table.
-
----
-
-# 🔐 Data Control Language (DCL)
-
-## Definition
-
-**Data Control Language (DCL)** manages database security and user permissions.
-
-These commands are mainly used by Database Administrators (DBAs).
-
----
-
-## Common DCL Commands
-
-| Command | Purpose |
-|----------|---------|
-| GRANT | Gives permissions to users |
-| REVOKE | Removes permissions from users |
-
----
-
-## Example
-
-```sql
-GRANT SELECT
-ON employees
-TO analyst;
-```
-
-This command allows the user `analyst` to read data from the `employees` table.
-
----
-
-# 🔄 Transaction Control Language (TCL)
-
-## Definition
-
-**Transaction Control Language (TCL)** manages database transactions.
-
-A transaction is a group of SQL statements executed as a single unit of work.
-
-Transactions help maintain data consistency and integrity.
-
----
-
-## Common TCL Commands
-
-| Command | Purpose |
-|----------|---------|
-| COMMIT | Saves changes permanently |
-| ROLLBACK | Undoes changes |
-| SAVEPOINT | Creates a rollback point |
-
----
-
-## Example
-
-```sql
-COMMIT;
-```
-
-This command permanently saves all changes made during the current transaction.
-
----
-
-# 📊 Comparison of SQL Command Categories
-
-| Category | Purpose | Common Commands |
-|----------|---------|-----------------|
-| DDL | Defines database structure | CREATE, ALTER, DROP, TRUNCATE, RENAME |
-| DML | Modifies table data | INSERT, UPDATE, DELETE |
-| DQL | Retrieves data | SELECT |
-| DCL | Controls permissions | GRANT, REVOKE |
-| TCL | Manages transactions | COMMIT, ROLLBACK, SAVEPOINT |
-
-
-# 🔄 CRUD Operations
-
-One of the fundamental concepts in database management is **CRUD**.
-
-CRUD represents the **four basic operations** that can be performed on data stored in a database.
-
-| Letter | Operation | Description | SQL Commands |
-|---------|-----------|-------------|--------------|
-| **C** | Create | Add new data | `INSERT` |
-| **R** | Read | Retrieve existing data | `SELECT` |
-| **U** | Update | Modify existing data | `UPDATE` |
-| **D** | Delete | Remove existing data | `DELETE` |
-
----
-
-## CRUD Flow
-
-```text
-            Database Table
-                  │
-     ┌────────────┼────────────┐
-     │            │            │
-  Create        Read        Update
- (INSERT)     (SELECT)     (UPDATE)
-                  │
-               Delete
-              (DELETE)
-```
+## Characteristics
+
+- Defines database structure
+- Works on database objects
+- Uses SQL commands
+- Automatically commits changes in MySQL
+- Changes are generally permanent unless restored from a backup
+
+> [!NOTE]
+> Most DDL operations perform an **implicit COMMIT** in MySQL. This means the changes are saved automatically and cannot be rolled back using `ROLLBACK`.
 
 ---
 
 ## Real-World Example
 
-Imagine a student management system.
+Imagine you're constructing a new apartment building.
 
-### Create a Student
+Before people can move in, you must:
 
-```sql
-INSERT INTO students
-VALUES (101, 'Rahul', 20);
-```
+- Design the building
+- Create rooms
+- Add floors
+- Modify room layouts if required
 
-A new student record is added.
+Only after the building is ready can people start living in it.
 
----
+Similarly,
 
-### Read Student Details
-
-```sql
-SELECT *
-FROM students;
-```
-
-Displays all student records.
+- **DDL builds the structure**
+- **DML stores the data inside that structure**
 
 ---
 
-### Update Student Details
+## Data Engineer Perspective
 
-```sql
-UPDATE students
-SET age = 21
-WHERE student_id = 101;
-```
+Data Engineers frequently use DDL while:
 
-Updates Rahul's age.
+- Designing new databases
+- Creating staging tables
+- Building data warehouse tables
+- Updating table structures
+- Managing schema changes during ETL pipelines
 
----
-
-### Delete Student Record
-
-```sql
-DELETE FROM students
-WHERE student_id = 101;
-```
-
-Removes the student record.
+A well-designed table structure improves data quality, query performance, and maintainability.
 
 ---
 
-> **Note**
+## 📊 ASCII Diagram
+
+```text
+                    DDL
+                     │
+      ┌──────────────┼──────────────┐
+      │              │              │
+      ▼              ▼              ▼
+   CREATE         ALTER          DROP
+      │              │              │
+      ▼              ▼              ▼
+ Creates        Modifies       Removes
+ Objects         Objects        Objects
+```
+
+---
+
+## 🔄 Workflow Diagram
+
+```text
+CREATE DATABASE
+        │
+        ▼
+USE DATABASE
+        │
+        ▼
+CREATE TABLE
+        │
+        ▼
+ALTER TABLE
+        │
+        ▼
+DESCRIBE TABLE
+        │
+        ▼
+SHOW TABLES
+        │
+        ▼
+DROP TABLE
+```
+
+---
+
+## 🏗️ Architecture Diagram
+
+```text
+Developer
+     │
+     ▼
+DDL Command
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Database Schema
+     │
+     ▼
+Structure Updated
+```
+
+---
+
+## 💡 Memory Tip
+
+> 💡 **DDL = Define**
 >
-> CRUD operations manipulate **data**, not the structure of a table. They primarily use **DML** (`INSERT`, `UPDATE`, `DELETE`) and **DQL** (`SELECT`) commands.
+> If a command changes the **structure** of a database object, it belongs to **DDL**.
 
 ---
 
-# 📝 SQL Naming Conventions
+## Examples
 
-SQL itself does not enforce strict naming rules beyond identifier syntax, but following consistent naming conventions makes databases easier to understand and maintain.
-
-Good naming conventions improve:
-
-- Readability
-- Maintainability
-- Team collaboration
-- Query clarity
-- Long-term scalability
-
----
-
-## Recommended Naming Conventions
-
-### 1. Use Meaningful Names
-
-Choose names that clearly describe the object.
-
-✅ Good
+### Example 1: Creating a Database
 
 ```sql
-employee_salary
-customer_orders
-student_details
+CREATE DATABASE company_db;
 ```
 
-❌ Poor
+**Explanation**
+
+This command creates a new database named `company_db`.
+
+Since it creates a database object, it is a DDL command.
+
+---
+
+### Example 2: Creating a Table
 
 ```sql
-abc
-table1
-temp
-data
-```
-
----
-
-### 2. Use Lowercase Letters
-
-Although SQL keywords are case-insensitive in most databases, many teams prefer lowercase object names.
-
-```sql
-employees
-departments
-customer_orders
-```
-
----
-
-### 3. Separate Words Using Underscores
-
-This improves readability.
-
-✅ Recommended
-
-```sql
-employee_details
-order_history
-product_category
-```
-
-❌ Avoid
-
-```sql
-EmployeeDetails
-employeeDetails
-employee-details
-```
-
----
-
-### 4. Use Singular or Plural Consistently
-
-Both approaches are acceptable.
-
-Examples:
-
-```text
-employees
-departments
-orders
-```
-
-or
-
-```text
-employee
-department
-order
-```
-
-Choose one convention and use it consistently across the project.
-
----
-
-### 5. Avoid Reserved Keywords
-
-Do not use SQL keywords as object names.
-
-❌
-
-```sql
-CREATE TABLE SELECT;
-```
-
-✅
-
-```sql
-CREATE TABLE employee_data;
-```
-
----
-
-### 6. Avoid Spaces
-
-Spaces require quoting and make queries harder to read.
-
-❌
-
-```text
-Employee Details
-```
-
-✅
-
-```text
-employee_details
-```
-
----
-
-### 7. Keep Names Short but Meaningful
-
-Avoid excessively long names.
-
-❌
-
-```text
-employee_information_for_company_database
-```
-
-✅
-
-```text
-employee_info
-```
-
----
-
-### Industry Naming Example
-
-```text
-company_db
-
-employees
-
-departments
-
-employee_salary
-
-customer_orders
-
-sales_transactions
-```
-
----
-
-# 💬 SQL Comments
-
-Comments are notes written inside SQL scripts to explain code.
-
-The database ignores comments during execution.
-
-Comments improve:
-
-- Readability
-- Documentation
-- Collaboration
-- Maintenance
-
----
-
-## Types of SQL Comments
-
-### 1. Single-Line Comment
-
-A single-line comment starts with two hyphens (`--`).
-
-```sql
--- Create Employees Table
-
 CREATE TABLE employees (
     employee_id INT,
     employee_name VARCHAR(100)
 );
 ```
 
+**Explanation**
+
+This command creates a new table named `employees` with two columns.
+
+It defines the structure of the table, making it a DDL command.
+
 ---
 
-### 2. Multi-Line Comment
-
-A multi-line comment starts with `/*` and ends with `*/`.
+### Example 3: Removing a Table
 
 ```sql
-/*
-This table stores
-employee information.
-*/
+DROP TABLE employees;
+```
 
-CREATE TABLE employees (
-    employee_id INT,
-    employee_name VARCHAR(100)
-);
+**Explanation**
+
+This command permanently deletes the `employees` table and all of its records.
+
+> [!WARNING]
+> `DROP TABLE` permanently removes the table and its data. This action cannot be undone unless a backup is available.
+
+---
+
+# 2. CREATE TABLE
+
+## What is CREATE TABLE?
+
+The **`CREATE TABLE`** statement is a DDL command used to create a new table inside a database.
+
+A table consists of **rows** and **columns**, where:
+
+- **Columns** define the type of information to be stored.
+- **Rows** store the actual records.
+
+Before inserting any data, a table must first be created.
+
+> [!IMPORTANT]
+> A table cannot store data until it has been created.
+
+---
+
+## Why Do We Need CREATE TABLE?
+
+The `CREATE TABLE` statement helps us:
+
+- Organize data into tables
+- Define column names
+- Specify data types
+- Apply constraints
+- Maintain data consistency
+- Store related information efficiently
+
+Without tables, a relational database cannot store records.
+
+---
+
+## Characteristics
+
+- Creates a new table.
+- Defines the table structure.
+- Specifies column names and data types.
+- Supports constraints.
+- Is a DDL command.
+- Automatically commits the transaction in MySQL.
+
+---
+
+## Real-World Example
+
+Imagine you're creating an **Employee Register** for a company.
+
+Before recording employee details, you first decide:
+
+- What information to store?
+- Employee ID?
+- Name?
+- Department?
+- Salary?
+- Joining Date?
+
+Only after defining these fields can employee records be added.
+
+Similarly, `CREATE TABLE` defines the structure before storing data.
+
+---
+
+## Data Engineer Perspective
+
+Data Engineers frequently use `CREATE TABLE` to:
+
+- Build staging tables
+- Create warehouse tables
+- Design fact tables
+- Design dimension tables
+- Create temporary tables for ETL processes
+
+A well-designed table improves performance, data quality, and scalability.
+
+---
+
+## 📊 ASCII Diagram
+
+```text
+                employees
++--------------------------------------+
+| employee_id    INT                   |
+| employee_name  VARCHAR(100)          |
+| department     VARCHAR(50)           |
+| salary         DECIMAL(10,2)         |
++--------------------------------------+
 ```
 
 ---
 
-## Best Practices for Comments
+## 🔄 Workflow Diagram
 
-✔ Explain **why**, not just **what**.
-
-✔ Add comments before complex queries.
-
-✔ Keep comments up to date.
-
-✔ Remove obsolete comments.
-
----
-
-## Example
-
-```sql
--- Create customer table
-
-CREATE TABLE customers (
-    customer_id INT PRIMARY KEY,
-    customer_name VARCHAR(100),
-    city VARCHAR(50)
-);
+```text
+CREATE DATABASE
+        │
+        ▼
+USE DATABASE
+        │
+        ▼
+CREATE TABLE
+        │
+        ▼
+DESCRIBE TABLE
+        │
+        ▼
+INSERT DATA
 ```
 
 ---
 
-# 🏗 CREATE TABLE Statement
+## 🏗️ Architecture Diagram
 
-The `CREATE TABLE` statement is used to create a new table in a database.
+```text
+Developer
+     │
+     ▼
+CREATE TABLE
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Creates Table Structure
+     │
+     ▼
+Database
+```
 
-A table consists of:
+---
 
-- Columns
-- Data types
-- Constraints (optional)
+## 💡 Memory Tip
 
-Each column stores a specific type of information.
+> 💡 **Memory Tip**
+>
+> **Database → Table → Data**
+>
+> First create the **Database**, then the **Table**, and finally insert the **Data**.
 
 ---
 
 ## Syntax
+
+### Basic Syntax
 
 ```sql
 CREATE TABLE table_name (
@@ -764,120 +407,1220 @@ CREATE TABLE table_name (
 
 ---
 
-## Example
+## Syntax Breakdown
+
+| Keyword | Description |
+|----------|-------------|
+| `CREATE TABLE` | Creates a new table |
+| `table_name` | Name of the table |
+| `column_name` | Name of a column |
+| `data_type` | Defines what type of data can be stored |
+
+---
+
+## Rules for Creating a Table
+
+- Table names should be meaningful.
+- Column names should clearly describe the data.
+- Every column must have a data type.
+- Column names within the same table must be unique.
+- Avoid using SQL reserved keywords as table or column names.
+- Follow a consistent naming convention.
+
+> [!TIP]
+> Use lowercase names with underscores for better readability.
+>
+> Example:
+>
+> - `employee_details`
+> - `customer_orders`
+> - `student_marks`
+
+---
+
+## Example 1: Create a Simple Table
 
 ```sql
-CREATE TABLE employees (
-    employee_id INT,
-    employee_name VARCHAR(100),
-    salary DECIMAL(10,2),
-    joining_date DATE
+CREATE TABLE students (
+    student_id INT,
+    student_name VARCHAR(100),
+    age INT
 );
 ```
 
-This creates a table named `employees` with four columns.
+**Explanation**
+
+This command creates a table named `students` with three columns:
+
+| Column | Data Type |
+|---------|-----------|
+| `student_id` | `INT` |
+| `student_name` | `VARCHAR(100)` |
+| `age` | `INT` |
 
 ---
 
-## How SQL Processes CREATE TABLE
-
-```text
-CREATE TABLE
-        │
-        ▼
-Check whether the table name is valid
-        │
-        ▼
-Validate column definitions
-        │
-        ▼
-Validate data types
-        │
-        ▼
-Create metadata
-        │
-        ▼
-Allocate storage
-        │
-        ▼
-Table Created Successfully
-```
-
----
-
-## Real-World Example
-
-An HR system may store employee details like this:
+## Example 2: Employee Table
 
 ```sql
 CREATE TABLE employees (
     employee_id INT,
     employee_name VARCHAR(100),
     department VARCHAR(50),
-    salary DECIMAL(10,2),
-    joining_date DATE
+    salary DECIMAL(10,2)
 );
 ```
 
-This defines the structure before any employee data is inserted.
+**Explanation**
+
+This table stores employee information.
+
+- `employee_id` stores employee IDs.
+- `employee_name` stores employee names.
+- `department` stores department names.
+- `salary` stores salary values with two decimal places.
 
 ---
 
-# 📋 SHOW TABLES
+## Example 3: Product Table
 
-The `SHOW TABLES` command displays all tables present in the currently selected database.
+```sql
+CREATE TABLE products (
+    product_id INT,
+    product_name VARCHAR(100),
+    price DECIMAL(10,2),
+    quantity INT
+);
+```
 
-It helps verify that tables have been created successfully.
+**Explanation**
+
+This table is designed for an inventory system.
+
+Each row represents one product in the inventory.
+
+---
+
+## Example 4: Check the Table Structure
+
+```sql
+DESCRIBE students;
+```
+
+or
+
+```sql
+DESC students;
+```
+
+**Explanation**
+
+Displays the structure of the `students` table, including:
+
+- Column names
+- Data types
+- NULL settings
+- Keys
+- Default values
+- Extra information
+
+> [!NOTE]
+> After creating a table, it's a good practice to run `DESCRIBE` or `DESC` to verify that the table has been created correctly.
+
+---
+
+## Common Errors
+
+### Error 1: Table Already Exists
+
+```sql
+CREATE TABLE students (
+    student_id INT
+);
+```
+
+If the `students` table already exists, MySQL returns an error.
+
+---
+
+### Error 2: Duplicate Column Names
+
+```sql
+CREATE TABLE students (
+    id INT,
+    id VARCHAR(20)
+);
+```
+
+**Explanation**
+
+Column names within the same table must be unique.
+
+---
+
+### Error 3: Missing Data Type
+
+```sql
+CREATE TABLE students (
+    student_id,
+    student_name VARCHAR(100)
+);
+```
+
+**Explanation**
+
+Every column must have a valid data type.
+
+---
+
+### Error 4: Missing Comma
+
+```sql
+CREATE TABLE students (
+    student_id INT
+    student_name VARCHAR(100)
+);
+```
+
+**Explanation**
+
+Columns must be separated using commas.
+
+> [!WARNING]
+> Even a small syntax mistake such as a missing comma or bracket can prevent a table from being created successfully.
+
+---
+
+# 3. ALTER TABLE
+
+## What is ALTER TABLE?
+
+The **`ALTER TABLE`** statement is a DDL command used to **modify the structure of an existing table** without deleting the table or its data.
+
+Using `ALTER TABLE`, you can:
+
+- Add new columns
+- Modify existing columns
+- Rename columns
+- Drop columns
+- Rename the table
+
+> [!IMPORTANT]
+> `ALTER TABLE` changes the **structure** of an existing table, not the data stored inside it.
+
+---
+
+## Why Do We Need ALTER TABLE?
+
+Business requirements change over time.
+
+For example:
+
+- A company starts storing employee email addresses.
+- A school wants to add a phone number for students.
+- An e-commerce website needs a discount column.
+
+Instead of creating a new table, we simply modify the existing one.
+
+---
+
+## Characteristics
+
+- Modifies an existing table
+- Can add, modify, rename, or remove columns
+- Preserves existing data (except when incompatible changes are made)
+- Is a DDL command
+- Performs an implicit commit in MySQL
+
+---
+
+## Real-World Example
+
+Suppose a company initially stores:
+
+- Employee ID
+- Employee Name
+- Department
+
+Later, management decides to store:
+
+- Email
+- Phone Number
+- Date of Joining
+
+Instead of creating a new table, the existing table is altered.
+
+---
+
+## Data Engineer Perspective
+
+Data Engineers frequently use `ALTER TABLE` when:
+
+- Business requirements change
+- New columns are introduced
+- Existing columns need modification
+- Data warehouse schemas evolve
+- ETL pipelines require additional fields
+
+---
+
+## 📊 ASCII Diagram
+
+```text
+Before ALTER
+
+employees
+
++----------------------+
+| id        INT        |
+| name      VARCHAR    |
++----------------------+
+
+          │
+          │ ALTER TABLE
+          ▼
+
+After ALTER
+
++----------------------+
+| id        INT        |
+| name      VARCHAR    |
+| email     VARCHAR    |
++----------------------+
+```
+
+---
+
+## 🔄 Workflow Diagram
+
+```text
+Existing Table
+       │
+       ▼
+ALTER TABLE
+       │
+       ▼
+Choose Operation
+       │
+       ├─────────────┬──────────────┬──────────────┐
+       ▼             ▼              ▼              ▼
+ADD COLUMN     MODIFY COLUMN   RENAME COLUMN   DROP COLUMN
+```
+
+---
+
+## 🏗️ Architecture Diagram
+
+```text
+Developer
+     │
+     ▼
+ALTER TABLE
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Updates Table Structure
+     │
+     ▼
+Existing Table
+```
+
+---
+
+## 💡 Memory Tip
+
+> 💡 **Memory Tip**
+>
+> Think of `ALTER` as **"Alter = Change"**.
+>
+> If you want to change the structure of an existing table, use `ALTER TABLE`.
+
+---
+
+# 3.1 ADD COLUMN
+
+## What is ADD COLUMN?
+
+The `ADD COLUMN` clause is used to add one or more new columns to an existing table.
 
 ---
 
 ## Syntax
 
 ```sql
-SHOW TABLES;
+ALTER TABLE table_name
+ADD COLUMN column_name data_type;
 ```
 
 ---
 
-## Example
+## Example 1
 
 ```sql
-USE company_db;
-
-SHOW TABLES;
+ALTER TABLE employees
+ADD COLUMN email VARCHAR(100);
 ```
 
-Example output:
+**Explanation**
+
+Adds a new column named `email` to the `employees` table.
+
+---
+
+## Example 2
+
+```sql
+ALTER TABLE employees
+ADD COLUMN salary DECIMAL(10,2);
+```
+
+**Explanation**
+
+Adds a new `salary` column capable of storing decimal values.
+
+---
+
+## Example 3
+
+```sql
+ALTER TABLE employees
+ADD COLUMN joining_date DATE;
+```
+
+**Explanation**
+
+Adds a column to store the employee's joining date.
+
+---
+
+# 3.2 MODIFY COLUMN
+
+## What is MODIFY COLUMN?
+
+The `MODIFY COLUMN` clause changes the **data type or size** of an existing column.
+
+---
+
+## Syntax
+
+```sql
+ALTER TABLE table_name
+MODIFY COLUMN column_name new_data_type;
+```
+
+---
+
+## Example 1
+
+```sql
+ALTER TABLE employees
+MODIFY COLUMN employee_name VARCHAR(150);
+```
+
+**Explanation**
+
+Changes the maximum length of `employee_name` from its previous size to 150 characters.
+
+---
+
+## Example 2
+
+```sql
+ALTER TABLE employees
+MODIFY COLUMN salary DECIMAL(12,2);
+```
+
+**Explanation**
+
+Increases the precision of the salary column.
+
+---
+
+## Example 3
+
+```sql
+ALTER TABLE employees
+MODIFY COLUMN phone_number BIGINT;
+```
+
+**Explanation**
+
+Changes the data type of `phone_number` to `BIGINT`.
+
+> [!WARNING]
+> Ensure the new data type is compatible with the existing data to avoid errors or data loss.
+
+---
+
+# 3.3 CHANGE COLUMN
+
+## What is CHANGE COLUMN?
+
+The `CHANGE COLUMN` clause is used to **rename a column** and optionally change its data type.
+
+Unlike `MODIFY COLUMN`, you must specify both the old column name and the new column name.
+
+---
+
+## Syntax
+
+```sql
+ALTER TABLE table_name
+CHANGE COLUMN old_column_name new_column_name data_type;
+```
+
+---
+
+## Example 1
+
+```sql
+ALTER TABLE employees
+CHANGE COLUMN employee_name full_name VARCHAR(150);
+```
+
+**Explanation**
+
+Renames `employee_name` to `full_name` while keeping the data type as `VARCHAR(150)`.
+
+---
+
+## Example 2
+
+```sql
+ALTER TABLE employees
+CHANGE COLUMN salary monthly_salary DECIMAL(12,2);
+```
+
+**Explanation**
+
+Renames the `salary` column to `monthly_salary`.
+
+---
+
+## Example 3
+
+```sql
+ALTER TABLE employees
+CHANGE COLUMN dept department VARCHAR(50);
+```
+
+**Explanation**
+
+Changes the column name from `dept` to `department`.
+
+---
+
+# 3.4 RENAME COLUMN
+
+## What is RENAME COLUMN?
+
+`RENAME COLUMN` is used to rename an existing column without changing its data type.
+
+> [!NOTE]
+> `RENAME COLUMN` is available in **MySQL 8.0 and later**.
+
+---
+
+## Syntax
+
+```sql
+ALTER TABLE table_name
+RENAME COLUMN old_column_name TO new_column_name;
+```
+
+---
+
+## Example 1
+
+```sql
+ALTER TABLE employees
+RENAME COLUMN email TO official_email;
+```
+
+**Explanation**
+
+Renames the `email` column to `official_email`.
+
+---
+
+## Example 2
+
+```sql
+ALTER TABLE employees
+RENAME COLUMN phone TO mobile_number;
+```
+
+**Explanation**
+
+Changes the column name while keeping the same data type.
+
+---
+
+# 3.5 DROP COLUMN
+
+## What is DROP COLUMN?
+
+The `DROP COLUMN` clause removes an existing column from a table.
+
+---
+
+## Syntax
+
+```sql
+ALTER TABLE table_name
+DROP COLUMN column_name;
+```
+
+---
+
+## Example 1
+
+```sql
+ALTER TABLE employees
+DROP COLUMN email;
+```
+
+**Explanation**
+
+Removes the `email` column from the `employees` table.
+
+---
+
+## Example 2
+
+```sql
+ALTER TABLE employees
+DROP COLUMN phone_number;
+```
+
+**Explanation**
+
+Deletes the `phone_number` column and all the values stored in it.
+
+> [!WARNING]
+> Dropping a column permanently deletes all data stored in that column.
+
+---
+
+## Example Workflow
+
+```text
+CREATE TABLE
+      │
+      ▼
+employees
+      │
+      ▼
+ADD COLUMN
+      │
+      ▼
+MODIFY COLUMN
+      │
+      ▼
+CHANGE / RENAME COLUMN
+      │
+      ▼
+DROP COLUMN
+      │
+      ▼
+Updated Table Structure
+```
+
+---
+
+# 4. RENAME TABLE
+
+## What is RENAME TABLE?
+
+The **`RENAME TABLE`** statement is a DDL command used to change the name of an existing table without affecting its data or structure.
+
+It is useful when:
+
+- A table name is incorrect.
+- Naming conventions change.
+- The table's purpose changes.
+- A more meaningful name is required.
+
+> [!IMPORTANT]
+> `RENAME TABLE` changes **only the table name**. The data and table structure remain unchanged.
+
+---
+
+## Why Do We Need RENAME TABLE?
+
+As projects grow, table names may need to be updated to improve readability and maintain consistency.
+
+For example:
+
+- `emp` → `employees`
+- `stud` → `students`
+- `cust` → `customers`
+
+Instead of creating a new table and copying the data, we simply rename the existing table.
+
+---
+
+## Characteristics
+
+- Changes the table name.
+- Does not modify the data.
+- Does not change column definitions.
+- Is a DDL command.
+- Performs an implicit commit.
+
+---
+
+## Real-World Example
+
+A company initially creates a table named:
+
+```text
+emp
+```
+
+As the project grows, the team decides to use descriptive names.
+
+The table is renamed to:
 
 ```text
 employees
-departments
-projects
-customers
 ```
+
+No data is lost during this process.
 
 ---
 
-## How SHOW TABLES Works
+## Data Engineer Perspective
+
+Data Engineers rename tables when:
+
+- Standardizing naming conventions
+- Migrating legacy databases
+- Improving readability
+- Organizing staging and production tables
+
+---
+
+## 📊 ASCII Diagram
 
 ```text
-SHOW TABLES
-        │
-        ▼
-Current Database
-        │
-        ▼
-Read Metadata
-        │
-        ▼
-Display Table Names
+Before
+
++-----------+
+|    emp    |
++-----------+
+
+      │
+      │ RENAME TABLE
+      ▼
+
++----------------+
+|   employees    |
++----------------+
 ```
 
 ---
 
-# 📖 DESCRIBE (DESC)
+## 🔄 Workflow Diagram
 
-The `DESCRIBE` command (or its shorthand `DESC`) displays the structure of a table.
+```text
+Existing Table
+       │
+       ▼
+RENAME TABLE
+       │
+       ▼
+New Table Name
+       │
+       ▼
+Continue Using Table
+```
+
+---
+
+## 🏗️ Architecture Diagram
+
+```text
+Developer
+     │
+     ▼
+RENAME TABLE
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Table Name Updated
+     │
+     ▼
+Database
+```
+
+---
+
+## 💡 Memory Tip
+
+> 💡 **Memory Tip**
+>
+> **RENAME TABLE = New Name, Same Data**
+
+---
+
+## Syntax
+
+```sql
+RENAME TABLE old_table_name
+TO new_table_name;
+```
+
+---
+
+## Example 1
+
+```sql
+RENAME TABLE emp
+TO employees;
+```
+
+**Explanation**
+
+Changes the table name from `emp` to `employees`.
+
+---
+
+## Example 2
+
+```sql
+RENAME TABLE stud
+TO students;
+```
+
+**Explanation**
+
+Renames the `stud` table to `students`.
+
+---
+
+## Example 3
+
+```sql
+RENAME TABLE customer_details
+TO customers;
+```
+
+**Explanation**
+
+The table receives a more meaningful and readable name.
+
+---
+
+> [!WARNING]
+> Ensure that applications, views, procedures, or queries referencing the old table name are updated after renaming the table.
+
+---
+
+# 5. TRUNCATE TABLE
+
+## What is TRUNCATE TABLE?
+
+The **`TRUNCATE TABLE`** statement is a DDL command used to remove **all rows** from a table while keeping the table structure intact.
+
+After truncation:
+
+- The table still exists.
+- All columns remain unchanged.
+- All records are permanently deleted.
+
+> [!IMPORTANT]
+> `TRUNCATE TABLE` removes **all records** but does **not** delete the table itself.
+
+---
+
+## Why Do We Need TRUNCATE TABLE?
+
+Sometimes we want to:
+
+- Empty a table
+- Reload fresh data
+- Clear test data
+- Reset staging tables
+
+Instead of deleting rows one by one, `TRUNCATE TABLE` removes everything quickly.
+
+---
+
+## Characteristics
+
+- Removes all rows.
+- Preserves the table structure.
+- Faster than `DELETE`.
+- Resets the `AUTO_INCREMENT` counter in MySQL.
+- Performs an implicit commit.
+
+---
+
+## Real-World Example
+
+Suppose a staging table is loaded every night.
+
+Before loading today's data, yesterday's data is removed using:
+
+```sql
+TRUNCATE TABLE staging_sales;
+```
+
+The table remains ready for the next data load.
+
+---
+
+## Data Engineer Perspective
+
+Data Engineers frequently truncate:
+
+- Staging tables
+- Temporary tables
+- Test tables
+- Intermediate ETL tables
+
+before loading fresh data.
+
+---
+
+## 📊 ASCII Diagram
+
+```text
+Before
+
+employees
+
+ID   Name
+---------
+1    Rahul
+2    Priya
+3    Amit
+
+        │
+        │ TRUNCATE TABLE
+        ▼
+
+employees
+
+(No Rows)
+
+Structure Still Exists
+```
+
+---
+
+## 🔄 Workflow Diagram
+
+```text
+Table
+   │
+   ▼
+TRUNCATE TABLE
+   │
+   ▼
+All Records Removed
+   │
+   ▼
+Table Ready for New Data
+```
+
+---
+
+## 🏗️ Architecture Diagram
+
+```text
+Developer
+     │
+     ▼
+TRUNCATE TABLE
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Delete All Rows
+     │
+     ▼
+Keep Table Structure
+```
+
+---
+
+## 💡 Memory Tip
+
+> 💡 **Memory Tip**
+>
+> **TRUNCATE = Table Stays, Data Goes**
+
+---
+
+## Syntax
+
+```sql
+TRUNCATE TABLE table_name;
+```
+
+---
+
+## Example 1
+
+```sql
+TRUNCATE TABLE employees;
+```
+
+**Explanation**
+
+Deletes all records from the `employees` table while keeping the table structure.
+
+---
+
+## Example 2
+
+```sql
+TRUNCATE TABLE students;
+```
+
+**Explanation**
+
+Removes every student record but keeps the table ready for new records.
+
+---
+
+## Example 3
+
+```sql
+TRUNCATE TABLE products;
+```
+
+**Explanation**
+
+Empties the `products` table without deleting the table itself.
+
+---
+
+## TRUNCATE vs DELETE
+
+| Feature | TRUNCATE | DELETE |
+|----------|----------|---------|
+| Removes All Rows | ✅ Yes | ✅ Yes (Without `WHERE`) |
+| Supports `WHERE` | ❌ No | ✅ Yes |
+| Faster | ✅ Yes | ❌ Usually Slower |
+| DDL/DML | DDL | DML |
+| Resets `AUTO_INCREMENT` | ✅ Yes | ❌ No (Generally) |
+| Table Structure | Remains | Remains |
+
+> [!WARNING]
+> `TRUNCATE TABLE` removes all records permanently. Since it performs an implicit commit, the operation cannot be rolled back in MySQL.
+
+---
+
+# 6. DROP TABLE
+
+## What is DROP TABLE?
+
+The **`DROP TABLE`** statement is a DDL command used to **permanently delete an entire table** from the database.
+
+When a table is dropped:
+
+- The table is removed.
+- All rows are deleted.
+- All columns are deleted.
+- Constraints, indexes, and other associated objects are also removed.
+
+> [!IMPORTANT]
+> `DROP TABLE` removes both the **table structure** and **all the data** stored in it.
+
+---
+
+## Why Do We Need DROP TABLE?
+
+Sometimes a table is no longer required.
+
+Examples:
+
+- Temporary project tables
+- Test tables
+- Duplicate tables
+- Obsolete tables
+
+Instead of keeping unused tables, we remove them using `DROP TABLE`.
+
+---
+
+## Characteristics
+
+- Deletes the entire table.
+- Deletes all records.
+- Deletes the table structure.
+- Frees storage space.
+- Is a DDL command.
+- Performs an implicit commit.
+
+---
+
+## Real-World Example
+
+Suppose a company creates a temporary table for testing.
+
+```text
+employee_test
+```
+
+After testing is complete, the table is no longer needed.
+
+It can be removed using:
+
+```sql
+DROP TABLE employee_test;
+```
+
+---
+
+## Data Engineer Perspective
+
+Data Engineers use `DROP TABLE` when:
+
+- Removing temporary tables
+- Cleaning up staging environments
+- Deleting obsolete tables
+- Rebuilding table structures
+
+---
+
+## 📊 ASCII Diagram
+
+```text
+Before
+
+Database
+   │
+   ▼
++----------------+
+|   employees    |
++----------------+
+
+        │
+        │ DROP TABLE
+        ▼
+
+Table Removed
+```
+
+---
+
+## 🔄 Workflow Diagram
+
+```text
+Existing Table
+      │
+      ▼
+DROP TABLE
+      │
+      ▼
+Table Deleted
+      │
+      ▼
+Storage Released
+```
+
+---
+
+## 🏗️ Architecture Diagram
+
+```text
+Developer
+     │
+     ▼
+DROP TABLE
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Delete Table
+     │
+     ▼
+Database
+```
+
+---
+
+## 💡 Memory Tip
+
+> 💡 **Memory Tip**
+>
+> **DROP = Everything Disappears**
+>
+> Structure ❌
+>
+> Data ❌
+
+---
+
+## Syntax
+
+```sql
+DROP TABLE table_name;
+```
+
+---
+
+## Example 1
+
+```sql
+DROP TABLE employees;
+```
+
+**Explanation**
+
+Deletes the `employees` table permanently.
+
+---
+
+## Example 2
+
+```sql
+DROP TABLE students;
+```
+
+**Explanation**
+
+Deletes the `students` table along with all its records.
+
+---
+
+## Example 3
+
+```sql
+DROP TABLE IF EXISTS employees;
+```
+
+**Explanation**
+
+Deletes the table only if it exists.
+
+If the table does not exist, MySQL does not generate an error.
+
+> [!TIP]
+> Use `IF EXISTS` to avoid errors when dropping tables.
+
+---
+
+> [!WARNING]
+> Once a table is dropped, both the structure and data are permanently removed unless a backup is available.
+
+---
+
+# 7. DESCRIBE / DESC
+
+## What is DESCRIBE?
+
+The **`DESCRIBE`** (or `DESC`) statement displays the structure of a table.
 
 It provides information about:
 
@@ -886,7 +1629,86 @@ It provides information about:
 - NULL values
 - Keys
 - Default values
-- Extra attributes
+- Extra properties
+
+---
+
+## Why Do We Need DESCRIBE?
+
+It helps developers:
+
+- Verify table creation
+- Check column names
+- Understand data types
+- Inspect constraints
+- Debug table structure
+
+---
+
+## Characteristics
+
+- Displays metadata.
+- Does not modify data.
+- Read-only command.
+- Useful for verification.
+
+---
+
+## 📊 ASCII Diagram
+
+```text
+employees
+
+        │
+        ▼
+DESCRIBE employees;
+
+        │
+        ▼
+
++-------------------------------+
+| Column | Type | Null | Key... |
++-------------------------------+
+```
+
+---
+
+## 🔄 Workflow Diagram
+
+```text
+CREATE TABLE
+      │
+      ▼
+DESCRIBE TABLE
+      │
+      ▼
+Verify Structure
+```
+
+---
+
+## 🏗️ Architecture Diagram
+
+```text
+Developer
+     │
+     ▼
+DESCRIBE TABLE
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Returns Table Metadata
+```
+
+---
+
+## 💡 Memory Tip
+
+> 💡 **Memory Tip**
+>
+> **DESCRIBE = Describe the Table**
 
 ---
 
@@ -904,859 +1726,250 @@ DESC table_name;
 
 ---
 
-## Example
+## Example 1
 
 ```sql
-DESC employees;
+DESCRIBE employees;
 ```
 
-Example output:
+**Explanation**
 
-| Field | Type | Null | Key | Default | Extra |
-|------|------|------|-----|---------|-------|
-| employee_id | int | NO | PRI | NULL | |
-| employee_name | varchar(100) | YES | | NULL | |
-| salary | decimal(10,2) | YES | | NULL | |
-| joining_date | date | YES | | NULL | |
+Displays the complete structure of the `employees` table.
 
 ---
 
-## Why DESCRIBE Is Useful
-
-Database developers commonly use `DESC` to:
-
-- Verify table structure
-- Check column data types
-- Review constraints
-- Understand existing tables before writing queries
-
-It is one of the most frequently used commands during database development and troubleshooting. 
-
-# 🔧 ALTER TABLE Statement
-
-The `ALTER TABLE` statement is used to **modify the structure of an existing table** without deleting the table or its data.
-
-Unlike `CREATE TABLE`, which creates a new table, `ALTER TABLE` changes an already existing table.
-
-Using `ALTER TABLE`, you can:
-
-- Add new columns
-- Modify existing columns
-- Rename columns
-- Drop columns
-- Rename the table
-- Add or remove constraints
-
-It is one of the most frequently used DDL commands in database development because database structures often evolve as application requirements change.
-
----
-
-## General Syntax
+## Example 2
 
 ```sql
-ALTER TABLE table_name
-operation;
+DESC students;
 ```
 
----
+**Explanation**
 
-# ➕ ADD COLUMN
+`DESC` is the short form of `DESCRIBE`.
 
-The `ADD COLUMN` clause is used to add one or more new columns to an existing table.
-
----
-
-## Syntax
-
-```sql
-ALTER TABLE table_name
-ADD COLUMN column_name data_type;
-```
+Both statements produce the same result.
 
 ---
 
-## Example
+# 8. SHOW TABLES
 
-```sql
-ALTER TABLE employees
-ADD COLUMN email VARCHAR(100);
-```
+## What is SHOW TABLES?
 
-The `employees` table now contains an additional column named `email`.
+The **`SHOW TABLES`** statement displays all tables present in the currently selected database.
 
 ---
 
-## Adding Multiple Columns
+## Why Do We Need SHOW TABLES?
 
-```sql
-ALTER TABLE employees
-ADD COLUMN phone VARCHAR(15),
-ADD COLUMN address VARCHAR(200);
-```
+It helps us:
+
+- View available tables
+- Verify table creation
+- Check database contents
+- Navigate databases easily
 
 ---
 
-## Execution Flow
+## Characteristics
+
+- Lists table names.
+- Works only on the selected database.
+- Does not modify data.
+
+---
+
+## 📊 ASCII Diagram
 
 ```text
-ALTER TABLE
-       │
-       ▼
-Locate Existing Table
-       │
-       ▼
-Validate New Column
-       │
-       ▼
-Update Table Metadata
-       │
-       ▼
-Allocate Storage
-       │
-       ▼
-Table Updated
-```
-
----
-
-# ✏️ MODIFY COLUMN (MySQL)
-
-The `MODIFY COLUMN` clause changes the **data type or definition** of an existing column.
-
-> **MySQL Note**
->
-> `MODIFY COLUMN` is supported in MySQL but is **not part of the ANSI SQL standard**.
-
----
-
-## Syntax
-
-```sql
-ALTER TABLE table_name
-MODIFY COLUMN column_name new_data_type;
-```
-
----
-
-## Example
-
-Suppose the `employee_name` column was originally defined as:
-
-```sql
-employee_name VARCHAR(50)
-```
-
-We decide that 50 characters are insufficient.
-
-```sql
-ALTER TABLE employees
-MODIFY COLUMN employee_name VARCHAR(100);
-```
-
-Now the column can store up to 100 characters.
-
----
-
-## Another Example
-
-```sql
-ALTER TABLE employees
-MODIFY COLUMN salary DECIMAL(12,2);
-```
-
-This increases the precision of the salary column.
-
----
-
-# 🔄 CHANGE COLUMN (MySQL)
-
-The `CHANGE COLUMN` clause is used to:
-
-- Rename a column
-- Change its data type
-
-Unlike `MODIFY COLUMN`, you must specify the column name twice.
-
-> **MySQL Note**
->
-> `CHANGE COLUMN` is specific to MySQL.
-
----
-
-## Syntax
-
-```sql
-ALTER TABLE table_name
-CHANGE COLUMN old_column_name
-new_column_name new_data_type;
-```
-
----
-
-## Example
-
-```sql
-ALTER TABLE employees
-CHANGE COLUMN employee_name full_name VARCHAR(100);
-```
-
-The column:
-
-```text
-employee_name
-```
-
-becomes
-
-```text
-full_name
-```
-
----
-
-## Another Example
-
-```sql
-ALTER TABLE employees
-CHANGE COLUMN salary monthly_salary DECIMAL(12,2);
-```
-
-This changes both the column name and its definition.
-
----
-
-# 🏷️ RENAME COLUMN
-
-Modern versions of MySQL (8.0+) support renaming a column without changing its data type.
-
----
-
-## Syntax
-
-```sql
-ALTER TABLE table_name
-RENAME COLUMN old_name TO new_name;
-```
-
----
-
-## Example
-
-```sql
-ALTER TABLE employees
-RENAME COLUMN phone TO mobile_number;
-```
-
-Only the column name changes.
-
-The data type remains unchanged.
-
----
-
-## When Should You Use It?
-
-Use `RENAME COLUMN` when:
-
-- Only the column name needs to change.
-- The data type should remain the same.
-
----
-
-# ❌ DROP COLUMN
-
-The `DROP COLUMN` clause permanently removes a column from a table.
-
-> **Warning**
->
-> All data stored in the dropped column is permanently deleted.
-
----
-
-## Syntax
-
-```sql
-ALTER TABLE table_name
-DROP COLUMN column_name;
-```
-
----
-
-## Example
-
-```sql
-ALTER TABLE employees
-DROP COLUMN address;
-```
-
-The `address` column is removed from the table.
-
----
-
-## Execution Flow
-
-```text
-ALTER TABLE
-       │
-       ▼
-Locate Column
-       │
-       ▼
-Remove Metadata
-       │
-       ▼
-Delete Stored Values
-       │
-       ▼
-Update Table Structure
-```
-
----
-
-# 🏷️ RENAME TABLE
-
-The `RENAME TABLE` statement changes the name of an existing table.
-
-No data is lost.
-
-Only the table name changes.
-
----
-
-## Syntax
-
-```sql
-RENAME TABLE old_table_name
-TO new_table_name;
-```
-
----
-
-## Example
-
-```sql
-RENAME TABLE employees
-TO employee_details;
-```
-
-The table is now called `employee_details`.
-
----
-
-## Alternative (MySQL)
-
-MySQL also supports:
-
-```sql
-ALTER TABLE employees
-RENAME TO employee_details;
-```
-
-Both statements achieve the same result.
-
----
-
-# 🗑️ TRUNCATE TABLE
-
-The `TRUNCATE TABLE` statement removes **all rows** from a table.
-
-However, the table structure remains intact.
-
----
-
-## Syntax
-
-```sql
-TRUNCATE TABLE table_name;
-```
-
----
-
-## Example
-
-```sql
-TRUNCATE TABLE employees;
-```
-
-After execution:
-
-- Table still exists ✅
-- Columns remain ✅
-- Constraints remain ✅
-- All rows are deleted ✅
-
----
-
-## TRUNCATE vs DELETE
-
-| Feature | TRUNCATE | DELETE |
-|----------|----------|---------|
-| Removes all rows | ✅ | ✅ |
-| Removes selected rows | ❌ | ✅ |
-| WHERE clause | ❌ | ✅ |
-| Faster | ✅ | ❌ |
-| Resets AUTO_INCREMENT (MySQL) | ✅ | ❌ (generally) |
-
----
-
-## Execution Flow
-
-```text
-TRUNCATE TABLE
+Current Database
         │
         ▼
-Locate Table
+SHOW TABLES;
         │
         ▼
-Remove All Rows
-        │
-        ▼
-Reset Storage
-        │
-        ▼
-Keep Table Structure
-```
-
----
-
-# ❌ DROP TABLE
-
-The `DROP TABLE` statement permanently deletes an entire table.
-
-This includes:
-
-- Table definition
-- Columns
-- Constraints
-- Indexes
-- All data
-
-> **Warning**
->
-> This operation cannot be undone unless a backup exists.
-
----
-
-## Syntax
-
-```sql
-DROP TABLE table_name;
-```
-
----
-
-## Example
-
-```sql
-DROP TABLE employees;
-```
-
-The table no longer exists in the database.
-
----
-
-## DROP TABLE vs TRUNCATE TABLE
-
-| Feature | DROP TABLE | TRUNCATE TABLE |
-|----------|------------|----------------|
-| Deletes rows | ✅ | ✅ |
-| Deletes table | ✅ | ❌ |
-| Deletes columns | ✅ | ❌ |
-| Table remains | ❌ | ✅ |
-| Removes metadata | ✅ | ❌ |
-
----
-
-# ⚙️ SQL Execution Flow (DDL Commands)
-
-Although DDL commands do not retrieve or manipulate rows like `SELECT` or `UPDATE`, they still follow an execution process internally.
-
-## CREATE TABLE
-
-```text
-CREATE TABLE
-      │
-      ▼
-Check Syntax
-      │
-      ▼
-Validate Table Name
-      │
-      ▼
-Validate Columns
-      │
-      ▼
-Validate Data Types
-      │
-      ▼
-Create Metadata
-      │
-      ▼
-Allocate Storage
-      │
-      ▼
-Table Created
-```
-
----
-
-## ALTER TABLE
-
-```text
-ALTER TABLE
-      │
-      ▼
-Locate Existing Table
-      │
-      ▼
-Validate Requested Change
-      │
-      ▼
-Modify Metadata
-      │
-      ▼
-Update Physical Structure (if required)
-      │
-      ▼
-Save Changes
-```
-
----
-
-## DROP TABLE
-
-```text
-DROP TABLE
-      │
-      ▼
-Locate Table
-      │
-      ▼
-Check Dependencies
-      │
-      ▼
-Remove Metadata
-      │
-      ▼
-Release Storage
-      │
-      ▼
-Table Deleted
-```
-
----
-
-## 💡 Best Practices
-
-- Always take a backup before running `DROP` or `TRUNCATE`.
-- Test DDL statements in a development environment before applying them to production.
-- Use meaningful column names when adding new columns.
-- Avoid changing data types without understanding the impact on existing data.
-- Review table dependencies before renaming or dropping tables.
-- Use version control or migration tools (such as Flyway or Liquibase) to manage schema changes in production systems.
-
-
-# 📊 Visual Explanation
-
-Understanding how DDL commands affect a database is easier when viewed as a workflow.
-
----
-
-## Database Object Lifecycle
-
-```text
-                  CREATE
-                     │
-                     ▼
-              Database Object
-                     │
-          ┌──────────┼──────────┐
-          │          │          │
-          ▼          ▼          ▼
-       ALTER      RENAME    TRUNCATE
-          │                     │
-          │                     ▼
-          │              Removes All Rows
-          │              (Structure Remains)
-          │
-          ▼
- Modify Table Structure
-(Add/Modify/Drop Columns)
-          │
-          ▼
-       DROP TABLE
-          │
-          ▼
-Object Permanently Deleted
-```
-
----
-
-## DDL Commands at a Glance
-
-| Command | Purpose | Structure Changed | Data Affected |
-|----------|---------|------------------|---------------|
-| `CREATE` | Creates a new database object | ✅ Yes | ❌ No |
-| `ALTER` | Modifies an existing object | ✅ Yes | ⚠️ Depends |
-| `RENAME` | Changes object name | ✅ Yes | ❌ No |
-| `TRUNCATE` | Removes all rows | ❌ No | ✅ Yes |
-| `DROP` | Deletes the entire object | ✅ Yes | ✅ Yes |
-
----
-
-## Understanding the Difference
-
-```text
-CREATE
-│
-├── Creates a new table
-│
-
-ALTER
-│
-├── Changes an existing table
-│
-├── Add Column
-├── Modify Column
-├── Rename Column
-└── Drop Column
-
-TRUNCATE
-│
-├── Deletes all rows
-└── Keeps the table
-
-DROP
-│
-└── Deletes the entire table
-```
-
----
-
-## Visual Comparison
-
-```text
-Before ALTER
-
-+-------------------------------+
-| employee_id                   |
-| employee_name                 |
-| salary                        |
-+-------------------------------+
-
-
-ALTER TABLE employees
-ADD COLUMN email VARCHAR(100);
-
-
-After ALTER
-
-+-------------------------------+
-| employee_id                   |
-| employee_name                 |
-| salary                        |
-| email                         |
-+-------------------------------+
-```
-
----
-
-```text
-Before TRUNCATE
-
-employees
-
-101 Rahul
-102 Amit
-103 Priya
-
-
-TRUNCATE TABLE employees;
-
-
-After TRUNCATE
-
-employees
-
-(No rows)
-
-Structure still exists.
-```
-
----
-
-```text
-Before DROP
 
 employees
 departments
 projects
-
-
-DROP TABLE employees;
-
-
-After DROP
-
-departments
-projects
-
-employees table no longer exists.
+salary
 ```
 
 ---
 
-# 🌍 Real-World Examples
-
-## Example 1: School Management System
-
-A school is developing a new database.
-
-Initially, the developers create a table to store student information.
-
-```sql
-CREATE TABLE students (
-    student_id INT,
-    student_name VARCHAR(100),
-    age INT
-);
-```
-
-Later, the school decides to store each student's email address.
-
-Instead of creating a new table, they modify the existing one.
-
-```sql
-ALTER TABLE students
-ADD COLUMN email VARCHAR(100);
-```
-
----
-
-## Example 2: E-Commerce Platform
-
-An online shopping application originally stores only the customer's name and phone number.
-
-As the business grows, customers need multiple delivery addresses.
-
-The database schema is updated using `ALTER TABLE` to support the new requirement without recreating the table.
-
----
-
-## Example 3: HR Management System
-
-An HR application stores employee salaries using the `INT` data type.
-
-As salaries become more precise, the company decides to store decimal values.
-
-```sql
-ALTER TABLE employees
-MODIFY COLUMN salary DECIMAL(12,2);
-```
-
-This allows salaries such as:
+## 🔄 Workflow Diagram
 
 ```text
-45678.50
-78000.75
+USE DATABASE
+      │
+      ▼
+SHOW TABLES
+      │
+      ▼
+List of Tables
 ```
-
-instead of only whole numbers.
 
 ---
 
-## Example 4: Cleaning Test Data
-
-During software testing, developers frequently need to remove all records before running a new test.
-
-Instead of deleting rows one by one, they use:
-
-```sql
-TRUNCATE TABLE test_orders;
-```
-
-The table remains available for the next round of testing.
-
----
-
-## Example 5: Removing an Unused Table
-
-A company decides to discontinue an old module.
-
-The associated table is no longer required.
-
-```sql
-DROP TABLE old_logs;
-```
-
-This permanently removes the table from the database.
-
----
-
-# 💼 Data Engineering Perspective
-
-DDL commands are used extensively in Data Engineering because data pipelines rely on well-defined database structures.
-
-Before data can be loaded into a warehouse or lakehouse, engineers must create and maintain the required schema.
-
-Common use cases include:
-
-- Creating staging tables for raw data ingestion.
-- Designing fact and dimension tables in a data warehouse.
-- Modifying schemas as business requirements evolve.
-- Renaming database objects for consistency.
-- Adding new columns when additional data sources are integrated.
-- Removing obsolete tables after data migration.
-- Preparing temporary tables for ETL or ELT workflows.
-
-### Example Workflow
+## 🏗️ Architecture Diagram
 
 ```text
-Raw CSV Files
-        │
-        ▼
-Landing Zone
-        │
-        ▼
-CREATE Staging Tables
-        │
-        ▼
-Load Raw Data
-        │
-        ▼
-ALTER Tables (Business Changes)
-        │
-        ▼
-Transform Data
-        │
-        ▼
-Load Data Warehouse
-        │
-        ▼
-Reporting & Analytics
+Developer
+     │
+     ▼
+SHOW TABLES
+     │
+     ▼
+MySQL Server
+     │
+     ▼
+Returns Table List
 ```
 
-### Why This Matters
+---
 
-In production environments, database schemas rarely remain unchanged.
+## 💡 Memory Tip
 
-Business requirements evolve over time, requiring engineers to:
-
-- Add new columns.
-- Change data types.
-- Introduce new tables.
-- Remove obsolete structures.
-- Optimize schemas for performance and scalability.
-
-A solid understanding of DDL commands enables Data Engineers to manage these changes safely and efficiently while minimizing disruption to downstream systems.
-
-> **Key Takeaway**
+> 💡 **Memory Tip**
 >
-> DDL commands define the foundation of every relational database. A well-designed schema makes data easier to store, query, maintain, and scale.
+> **SHOW TABLES = Show all tables in the current database**
 
 ---
 
-## 📚 Navigation
+## Syntax
 
-| Previous | Home                    | Next |
-|----------|-------------------------|------|
-| [⬅️ Day 01 - Database Basics](../Day_01_Database_Basics/README.md) | [🏠 SQL ](../README.md) | [Day 03 - DML Commands ➡️](../Day_03_DML_Commands/README.md) |
+```sql
+SHOW TABLES;
+```
+
+---
+
+## Example
+
+```sql
+SHOW TABLES;
+```
+
+**Explanation**
+
+Displays every table available in the currently selected database.
+
+---
+
+# 9. DDL vs DML
+
+| Feature | DDL | DML |
+|----------|-----|-----|
+| Full Form | Data Definition Language | Data Manipulation Language |
+| Purpose | Defines database structure | Manipulates data |
+| Works On | Database Objects | Records |
+| Commands | CREATE, ALTER, DROP, TRUNCATE, RENAME | INSERT, UPDATE, DELETE |
+| Auto Commit | Yes | No (Depends on transaction) |
+| Rollback | Generally No | Yes (When transactions are used) |
+
+---
+
+## 💡 Memory Tip
+
+> 💡 **DDL = Define**
+>
+> **DML = Manipulate**
+
+---
+
+# Summary
+
+In this chapter, you learned:
+
+- Data Definition Language (DDL)
+- CREATE TABLE
+- ALTER TABLE
+- RENAME TABLE
+- TRUNCATE TABLE
+- DROP TABLE
+- DESCRIBE / DESC
+- SHOW TABLES
+- Difference between DDL and DML
+
+---
+
+# Best Practices
+
+- Use meaningful table names.
+- Follow a consistent naming convention.
+- Verify table structures using `DESCRIBE`.
+- Use `IF EXISTS` before dropping tables.
+- Test DDL commands in a development environment before running them in production.
+- Always take backups before executing destructive commands.
+
+---
+
+# Common Mistakes
+
+- Forgetting to select a database using `USE`.
+- Using `DROP TABLE` instead of `TRUNCATE TABLE`.
+- Accidentally deleting production tables.
+- Creating tables without appropriate data types.
+- Not verifying the table structure after creation.
+
+---
+
+# Interview Questions
+
+### Basic
+
+1. What is DDL?
+2. What are DDL commands?
+3. What is the purpose of `CREATE TABLE`?
+4. What is `ALTER TABLE`?
+5. What is `DROP TABLE`?
+6. What is `TRUNCATE TABLE`?
+7. What is the difference between `DESCRIBE` and `SHOW TABLES`?
+
+---
+
+### Intermediate
+
+8. Difference between `DROP TABLE` and `TRUNCATE TABLE`.
+9. Difference between DDL and DML.
+10. Why does MySQL automatically commit DDL statements?
+11. When would you use `ALTER TABLE`?
+12. What is the purpose of `IF EXISTS`?
+
+---
+
+### Practical
+
+13. Create an `employees` table with appropriate columns.
+14. Add a new column using `ALTER TABLE`.
+15. Rename a column.
+16. Remove a column.
+17. Rename a table.
+18. Display the structure of a table.
+19. List all tables in the current database.
+20. Delete a table safely.
+
+---
+
+# Key Takeaways
+
+- DDL commands define and modify the structure of database objects.
+- `CREATE TABLE` creates new tables.
+- `ALTER TABLE` modifies existing tables.
+- `RENAME TABLE` changes the table name.
+- `TRUNCATE TABLE` removes all rows but keeps the table.
+- `DROP TABLE` removes both the table and its data.
+- `DESCRIBE` displays table structure.
+- `SHOW TABLES` lists all tables in the current database.
+
+---
+
+# What's Next?
+
+In **Day 03**, we will learn **DML (Data Manipulation Language)** and explore commands such as:
+
+- `INSERT`
+- `UPDATE`
+- `DELETE`
+
+These commands are used to add, modify, and remove data stored in database tables.

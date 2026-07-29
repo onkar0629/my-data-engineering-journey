@@ -35,6 +35,3 @@
 # 30 – 60 minutes  Normal Job
 # Otherwise  Fast Job
 
-
-n =5
-print(5//2)
