@@ -1,0 +1,152 @@
+-- ==========================================================
+-- SQL Practice Sheet 20 : Final Data Engineer SQL Mock Interview
+-- ==========================================================
+-- Difficulty : Beginner -> Advanced
+-- Questions : 100
+-- Time      : 3 Hours
+-- Topics:
+-- SELECT, WHERE, ORDER BY, GROUP BY, HAVING,
+-- JOINS, Subqueries, CTEs, Window Functions,
+-- String Functions, Date Functions,
+-- Views, Indexes, Procedures, Triggers,
+-- Business Case Studies
+-- ==========================================================
+
+-- Instructions
+-- 1. Write only SQL queries.
+-- 2. Prefer optimized solutions.
+-- 3. Use CTEs/Window Functions where appropriate.
+-- 4. Assume MySQL 8.0+.
+
+-- ==========================================================
+-- SECTION A : SQL Fundamentals (Q1-Q20)
+-- ==========================================================
+
+-- Q1. Display all employees.
+-- Q2. Display employees earning more than 70000.
+-- Q3. Display employees from IT.
+-- Q4. Display unique departments.
+-- Q5. Sort employees by salary DESC.
+-- Q6. Find top 5 salaries.
+-- Q7. Employees hired after 2023-01-01.
+-- Q8. Employees with NULL manager.
+-- Q9. Employees whose name starts with 'A'.
+-- Q10. Employees whose email ends with '.com'.
+-- Q11. Count total employees.
+-- Q12. Average salary.
+-- Q13. Highest salary.
+-- Q14. Lowest salary.
+-- Q15. Department-wise employee count.
+-- Q16. Department-wise average salary.
+-- Q17. Departments having more than 5 employees.
+-- Q18. Salary between 60000 and 90000.
+-- Q19. Employees from IT or HR.
+-- Q20. Employees not in Sales.
+
+-- ==========================================================
+-- SECTION B : JOINS (Q21-Q40)
+-- ==========================================================
+
+-- Q21. Employee with department.
+-- Q22. Employee with manager.
+-- Q23. Employees without department.
+-- Q24. Departments without employees.
+-- Q25. Employee with project.
+-- Q26. Employee, Department, Project.
+-- Q27. Highest salary by department.
+-- Q28. Department payroll.
+-- Q29. Employees with multiple projects.
+-- Q30. Projects without employees.
+-- Q31. Customer orders with products.
+-- Q32. Total revenue by customer.
+-- Q33. Total revenue by city.
+-- Q34. Best-selling product.
+-- Q35. Monthly revenue.
+-- Q36. Customers with no orders.
+-- Q37. Products never sold.
+-- Q38. Employees hired before manager.
+-- Q39. Top department by revenue.
+-- Q40. Dashboard: employee, dept, salary, project count.
+
+-- ==========================================================
+-- SECTION C : Subqueries & CTEs (Q41-Q60)
+-- ==========================================================
+
+-- Q41. Second highest salary.
+-- Q42. Third highest salary.
+-- Q43. Above company average salary.
+-- Q44. Above department average salary.
+-- Q45. Highest-paid employee per department.
+-- Q46. Lowest-paid employee per department.
+-- Q47. Departments with no employees (NOT EXISTS).
+-- Q48. Departments with employees (EXISTS).
+-- Q49. Salary > ALL Sales employees.
+-- Q50. Salary > ANY HR employee.
+-- Q51. CTE: department payroll.
+-- Q52. CTE: top 3 salaries.
+-- Q53. Multiple CTEs comparing company vs department averages.
+-- Q54. Recursive CTE generate 1-20.
+-- Q55. Recursive CTE countdown 20-1.
+-- Q56. Latest hire per department.
+-- Q57. Employees hired before company average hire year.
+-- Q58. Department with maximum employees.
+-- Q59. Customers spending above average.
+-- Q60. Products contributing >10% revenue.
+
+-- ==========================================================
+-- SECTION D : Window Functions (Q61-Q80)
+-- ==========================================================
+
+-- Q61. ROW_NUMBER by salary.
+-- Q62. RANK by salary.
+-- Q63. DENSE_RANK by salary.
+-- Q64. Top 3 per department.
+-- Q65. LAG salary.
+-- Q66. LEAD salary.
+-- Q67. Running salary total.
+-- Q68. Running revenue.
+-- Q69. Department average using OVER().
+-- Q70. Salary percentage contribution.
+-- Q71. NTILE(4).
+-- Q72. FIRST_VALUE salary.
+-- Q73. LAST_VALUE salary.
+-- Q74. Latest employee per department.
+-- Q75. Second highest salary per department.
+-- Q76. Company rank and department rank.
+-- Q77. Running employee count.
+-- Q78. Moving average salary.
+-- Q79. Revenue rank by month.
+-- Q80. Top salesperson each month.
+
+-- ==========================================================
+-- SECTION E : Business Case Studies (Q81-Q100)
+-- ==========================================================
+
+-- Q81. Executive sales dashboard.
+-- Q82. HR hiring report.
+-- Q83. Department attrition report.
+-- Q84. Top customers by lifetime value.
+-- Q85. Product profitability report.
+-- Q86. Inventory reorder candidates.
+-- Q87. Monthly KPI report.
+-- Q88. Quarterly revenue trend.
+-- Q89. Year-over-year growth.
+-- Q90. Customer retention report.
+-- Q91. Churn analysis.
+-- Q92. Cohort analysis (conceptual).
+-- Q93. Top-selling category each month.
+-- Q94. Bottom 5 performing products.
+-- Q95. Fraud detection using duplicate orders.
+-- Q96. Detect consecutive login days.
+-- Q97. Find gaps in invoice IDs.
+-- Q98. Build employee hierarchy report.
+-- Q99. Build a management summary report.
+-- Q100. Write one SQL query (or set of queries) to generate a complete business dashboard showing:
+--       Department, Employee Count, Payroll,
+--       Average Salary, Total Sales, Top Employee,
+--       and Revenue Contribution.
+
+-- ===========================
+-- Congratulations!
+-- You have completed the Final SQL Mock Interview.
+-- ===========================
