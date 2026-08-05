@@ -1,6 +1,7 @@
-for i in range(5):
+a = "Python"
+b = a
 
-    if i == 3:
-        pass
+a = "SQL"
 
-    print(i)
+print(a)
+print(b)

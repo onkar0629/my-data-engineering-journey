@@ -1,11 +1,11 @@
 """
 ==========================================================
-Day 07 : Loops
-Topic  : Practice Questions
+Day 09 : Loop Control Statements
+Topic  : Practice Question Answers
 
 Description:
 This file contains practice questions to help reinforce
-the concepts covered in Day 07.
+the concepts covered in Day 09.
 
 Instructions:
 - Solve each question before referring to examples.py.
@@ -19,35 +19,43 @@ Instructions:
 # Basic Practice
 # ==========================================================
 
-# Q1. Print numbers from 1 to 10 using a for loop.
+# Q1. Print numbers from 1 to 10.
+# Stop the loop when the number becomes 6 using break.
+
+for i in range(1, 10):
+    if i == 6:
+        break
+    print(i)
+
+# ==========================================================
+
+# Q2. Print numbers from 1 to 10.
+# Skip printing the number 5 using continue.
+
+
+
+# ==========================================================
+
+# Q3. Write a loop that prints numbers from 1 to 5.
+# Use pass when the number is 3.
 
 # Your code here
 
 
 # ==========================================================
 
-# Q2. Print numbers from 10 to 1 in reverse order.
+# Q4. Use a for loop with an else block.
+# Print numbers from 1 to 5 and then display:
+#
+# Loop Finished Successfully
 
 # Your code here
 
 
 # ==========================================================
 
-# Q3. Print all even numbers from 2 to 20.
-
-# Your code here
-
-
-# ==========================================================
-
-# Q4. Print all odd numbers from 1 to 19.
-
-# Your code here
-
-
-# ==========================================================
-
-# Q5. Print your name 5 times using a loop.
+# Q5. Use a while loop to print numbers from 1 to 10.
+# Stop when the number reaches 7.
 
 # Your code here
 
@@ -56,48 +64,51 @@ Instructions:
 # Intermediate Practice
 # ==========================================================
 
-# Q6. Print the multiplication table of 7.
+# Q6. Print all odd numbers from 1 to 20.
+# Use continue to skip even numbers.
 
-# Expected Output:
+# Your code here
+
+
+# ==========================================================
+
+# Q7. Search for the number 15 in the list below.
 #
-# 7 x 1 = 7
-# ...
-# 7 x 10 = 70
-
-# Your code here
-
-
-# ==========================================================
-
-# Q7. Find the sum of numbers from 1 to 100.
-
-# Expected Output:
-# Sum = 5050
-
-# Your code here
-
-
-# ==========================================================
-
-# Q8. Find the sum of all even numbers from 1 to 50.
-
-# Your code here
-
-
-# ==========================================================
-
-# Q9. Print each character of the string below using a loop.
+# numbers = [4, 8, 10, 15, 18, 20]
 #
-# language = "Python"
+# If found, display:
+#
+# Number Found
+#
+# Otherwise display:
+#
+# Number Not Found
+#
+# (Hint: Use break and else.)
 
 # Your code here
 
 
 # ==========================================================
 
-# Q10. Print each course from the list below.
-#
-# courses = ["Python", "SQL", "Azure", "Spark"]
+# Q8. Keep asking the user to enter "yes".
+# Stop only when the correct input is entered.
+
+# Your code here
+
+
+# ==========================================================
+
+# Q9. Print the multiplication table of 7.
+# Stop printing after reaching 7 × 5.
+
+# Your code here
+
+
+# ==========================================================
+
+# Q10. Print numbers from 1 to 20.
+# Skip all multiples of 3.
 
 # Your code here
 
@@ -109,6 +120,8 @@ Instructions:
 # Q11. Predict the output.
 
 for i in range(5):
+    if i == 2:
+        break
     print(i)
 
 # Your Answer:
@@ -119,7 +132,9 @@ for i in range(5):
 
 # Q12. Predict the output.
 
-for i in range(2, 11, 2):
+for i in range(1, 6):
+    if i == 4:
+        continue
     print(i)
 
 # Your Answer:
@@ -130,12 +145,9 @@ for i in range(2, 11, 2):
 
 # Q13. Predict the output.
 
-total = 0
-
-for i in range(1, 4):
-    total += i
-
-print(total)
+for i in range(3):
+    pass
+    print(i)
 
 # Your Answer:
 # __________________
@@ -145,8 +157,10 @@ print(total)
 
 # Q14. Predict the output.
 
-for letter in "SQL":
-    print(letter)
+for i in range(3):
+    print(i)
+else:
+    print("Done")
 
 # Your Answer:
 # __________________
@@ -156,8 +170,15 @@ for letter in "SQL":
 
 # Q15. Predict the output.
 
-for i in range(5, 0, -2):
+for i in range(5):
+
+    if i == 3:
+        break
+
     print(i)
+
+else:
+    print("Completed")
 
 # Your Answer:
 # __________________
@@ -167,31 +188,28 @@ for i in range(5, 0, -2):
 # Concept Questions
 # ==========================================================
 
-# Q16. What is a loop?
+# Q16. What is the purpose of the break statement?
 
 
 # ==========================================================
 
-# Q17. What is the purpose of the for loop?
+# Q17. What is the difference between break and continue?
 
 
 # ==========================================================
 
-# Q18. What does range(5) return?
+# Q18. What does the pass statement do?
 
 
 # ==========================================================
 
-# Q19. Explain the difference between:
-#
-# range(5)
-# range(1, 6)
-# range(2, 11, 2)
+# Q19. When is the else block of a loop executed?
 
 
 # ==========================================================
 
-# Q20. Why are loops important in programming?
+# Q20. Can break terminate both inner and outer loops at once?
+# Explain your answer.
 
 
 # ==========================================================
@@ -200,46 +218,58 @@ for i in range(5, 0, -2):
 
 # Challenge 1
 #
-# Print the multiplication tables from 1 to 10.
+# Create a number guessing game.
 #
-# Example:
+# Secret Number = 8
 #
-# 1 x 1 = 1
-# ...
-# 10 x 10 = 100
+# Keep asking the user until the correct number is entered.
+#
+# Display:
+# Correct Guess!
 
 
 # ==========================================================
 
 # Challenge 2
 #
-# Count how many numbers between 1 and 100 are divisible by 3.
+# Print numbers from 1 to 50.
+#
+# Skip every multiple of 5 using continue.
 
 
 # ==========================================================
 
 # Challenge 3
 #
-# Print the square of every number from 1 to 20.
+# Search for a student's name in a list.
 #
-# Example:
-# 1 -> 1
-# 2 -> 4
-# ...
-# 20 -> 400
+# students = ["Aman", "Priya", "Rahul", "Sneha", "Rohan"]
+#
+# If found:
+# Student Found
+#
+# Otherwise:
+# Student Not Found
+#
+# (Hint: Use for-else.)
 
 
 # ==========================================================
 
 # Challenge 4
 #
-# Given the following list:
+# Data Validation
 #
-# marks = [85, 72, 91, 64, 58]
+# records = [1001, 1002, None, 1004, None, 1006]
 #
-# Print each mark and display whether it is Pass or Fail.
+# Skip invalid records (None) and process only valid ones.
 #
-# Passing Marks = 35
+# Expected Output:
+#
+# Processing Record: 1001
+# Processing Record: 1002
+# Processing Record: 1004
+# Processing Record: 1006
 
 
 # ==========================================================
@@ -248,27 +278,19 @@ for i in range(5, 0, -2):
 #
 # Data Engineering Challenge
 #
-# A dataset contains the following records:
+# Simulate a data pipeline processing batches.
 #
-# records = [
-#     "Record-1",
-#     "Record-2",
-#     "Record-3",
-#     "Record-4",
-#     "Record-5"
-# ]
+# batches = ["Batch-1", "Batch-2", "ERROR", "Batch-4"]
 #
-# Write a program to process each record one by one and print:
+# Process each batch.
 #
-# Processing Record-1
-# Processing Record-2
-# ...
+# If "ERROR" is encountered:
+# - Display "Pipeline Stopped!"
+# - Exit the loop immediately using break.
 #
-# Finally print:
-#
-# Dataset Processed Successfully!
-
+# Otherwise:
+# - Display "Processing <batch>"
 
 # ==========================================================
 
-print("\n🎉 Congratulations! You have completed Day 07 Practice.")
+print("\n🎉 Congratulations! You have completed Day 09 Practice.")
