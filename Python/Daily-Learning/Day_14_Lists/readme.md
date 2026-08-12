@@ -8,9 +8,9 @@
 
 ## Overview
 
-A **list** is a collection used to store multiple values in a single variable.
+A **list** is a collection used to store multiple values inside a single variable.
 
-Instead of writing:
+Instead of creating separate variables:
 
 ```python
 student_1 = "Onkar"
@@ -18,7 +18,7 @@ student_2 = "Rahul"
 student_3 = "Amit"
 ```
 
-we can write:
+we can store the values together:
 
 ```python
 students = ["Onkar", "Rahul", "Amit"]
@@ -26,7 +26,7 @@ students = ["Onkar", "Rahul", "Amit"]
 
 A Python list is **ordered, mutable, indexed, iterable, and allows duplicate values**. A list can also contain different data types.
 
-Lists are important in Data Engineering because Python programs often work with collections such as file names, column names, validation errors, API results, and batches of records.
+Lists are important in Data Engineering because Python programs frequently work with collections such as file names, column names, validation errors, API results, and batches of records.
 
 ---
 
@@ -50,7 +50,7 @@ Lists are important in Data Engineering because Python programs often work with 
 - [16. List Unpacking](#16-list-unpacking)
 - [17. List vs Tuple](#17-list-vs-tuple)
 - [18. Common Mistakes](#18-common-mistakes)
-- [19. Interview Questions](#19-interview-questions)
+- [19. Interview Follow-up Questions](#19-interview-follow-up-questions)
 - [20. Data Engineering Perspective](#20-data-engineering-perspective)
 
 ---
@@ -63,7 +63,7 @@ A list stores multiple values inside square brackets `[]`.
 numbers = [10, 20, 30, 40]
 ```
 
-Here `numbers` refers to one list containing four elements.
+Here, `numbers` refers to one list containing four elements.
 
 ### Important Properties
 
@@ -76,7 +76,7 @@ Here `numbers` refers to one list containing four elements.
 | Duplicates allowed | The same value can appear multiple times |
 | Different types allowed | A list can contain different Python objects |
 
-For example:
+Example:
 
 ```python
 values = [10, "Python", 3.14, True]
@@ -105,7 +105,7 @@ The list contains three elements.
 numbers = []
 ```
 
-An empty list contains zero elements. We often create one when values will be added later.
+An empty list contains zero elements. We commonly create one when values will be added later.
 
 ```python
 numbers = []
@@ -214,7 +214,7 @@ Output:
 30
 ```
 
-This is useful when we want the last elements without calculating the length of the list.
+Negative indexing is useful when we want elements from the end without calculating the length of the list.
 
 ---
 
@@ -297,7 +297,7 @@ Output:
 ```
 
 > [!IMPORTANT]
-> The `stop` position in slicing is exclusive. This is one of the most common Python interview questions.
+> The `stop` position in slicing is exclusive.
 
 ---
 
@@ -814,7 +814,7 @@ Output:
 None
 ```
 
-This happens because `sort()` modifies the existing list rather than returning a new list.
+This happens because `sort()` modifies the existing list instead of returning a new list.
 
 ### `sorted()`
 
@@ -835,7 +835,7 @@ Output:
 [3, 1, 2]
 ```
 
-### Interview Comparison
+### `sort()` vs `sorted()`
 
 | `sort()` | `sorted()` |
 |---|---|
@@ -1005,67 +1005,270 @@ Index `3` is not included.
 
 ---
 
-# 19. Interview Questions
+> [!QUESTION]
+>
+> ## Interview Follow-up Questions
 
-### Q1. What is a list in Python?
+### Q1. What is the difference between `append()` and `extend()`?
 
-A list is an ordered, mutable collection that can store multiple values. It can contain duplicate values and different data types.
+<details>
+<summary><strong>Answer</strong></summary>
 
-### Q2. Are lists mutable?
+`append()` adds the entire object as **one element**, while `extend()` adds elements from an iterable individually.
 
-Yes. Existing elements can be changed, and elements can be added or removed.
+```python
+numbers = [1, 2]
 
-### Q3. What is the difference between `append()` and `extend()`?
+numbers.append([3, 4])
+print(numbers)
+```
 
-`append()` adds one object as one element. `extend()` adds elements from an iterable individually.
+Output:
 
-### Q4. What is the difference between `remove()` and `pop()`?
+```text
+[1, 2, [3, 4]]
+```
 
-`remove()` removes the first matching value. `pop()` removes an element by index and returns the removed value.
+With `extend()`:
 
-### Q5. What happens with `y = x` when `x` is a list?
+```python
+numbers = [1, 2]
 
-Both variables refer to the same list object.
+numbers.extend([3, 4])
+print(numbers)
+```
 
-### Q6. How do you make a shallow copy?
+Output:
 
-Use `x.copy()` or `x[:]`.
+```text
+[1, 2, 3, 4]
+```
 
-### Q7. What is the difference between `sort()` and `sorted()`?
+The key difference is **one object vs. elements from an iterable**.
 
-`sort()` modifies the original list and returns `None`. `sorted()` returns a new sorted result.
+</details>
 
-### Q8. What is a nested list?
+---
 
-A list containing other lists as elements.
+### Q2. If `x = [1, 2, 3]` and `y = x`, what happens when you modify `y`?
 
-### Q9. Can lists contain duplicate values?
+<details>
+<summary><strong>Answer</strong></summary>
 
-Yes.
+`x` and `y` refer to the **same list object**.
 
-### Q10. Can a list contain different data types?
+```python
+x = [1, 2, 3]
+y = x
 
-Yes.
+y.append(4)
 
-### Q11. How do you access the last element?
+print(x)
+print(y)
+```
 
-Use `list[-1]`.
+Output:
 
-### Q12. What is list slicing?
+```text
+[1, 2, 3, 4]
+[1, 2, 3, 4]
+```
 
-Slicing extracts part of a list using `list[start:stop:step]`. The stop index is excluded.
+If you need a separate shallow copy:
 
-### Q13. What is the difference between `del`, `remove()`, and `pop()`?
+```python
+y = x.copy()
+```
 
-`del` removes by index or slice, `remove()` removes by value, and `pop()` removes by index and returns the removed value.
+This question tests **object references and mutability**.
 
-### Q14. What happens when `remove()` cannot find a value?
+</details>
 
-Python raises `ValueError`.
+---
 
-### Q15. What happens when a list index does not exist?
+### Q3. Suppose a list contains 10 million records. Would you always store the entire dataset in a Python list?
 
-Python raises `IndexError`.
+<details>
+<summary><strong>Answer</strong></summary>
+
+No.
+
+A Python list keeps references to its elements in memory. Loading a very large dataset into one list can create significant memory pressure.
+
+For large-scale Data Engineering workloads, consider:
+
+- Generators
+- Iterators
+- Streaming
+- Batch processing
+- DataFrames
+- Distributed processing
+
+The correct approach depends on data size, transformation requirements, and available resources.
+
+</details>
+
+---
+
+### Q4. You need to remove every occurrence of `10` from a list. Would `remove()` solve the problem?
+
+<details>
+<summary><strong>Answer</strong></summary>
+
+No. `remove()` removes only the **first matching occurrence**.
+
+```python
+numbers = [10, 20, 10, 30, 10]
+
+numbers.remove(10)
+
+print(numbers)
+```
+
+Output:
+
+```text
+[20, 10, 30, 10]
+```
+
+To remove all occurrences, one approach is:
+
+```python
+numbers = [10, 20, 10, 30, 10]
+
+numbers = [x for x in numbers if x != 10]
+
+print(numbers)
+```
+
+Output:
+
+```text
+[20, 30]
+```
+
+This also introduces list comprehensions, which will be studied later.
+
+</details>
+
+---
+
+### Q5. What is the difference between `sort()` and `sorted()`?
+
+<details>
+<summary><strong>Answer</strong></summary>
+
+`sort()` is a list method that changes the original list and returns `None`.
+
+```python
+numbers = [3, 1, 2]
+
+result = numbers.sort()
+
+print(numbers)
+print(result)
+```
+
+Output:
+
+```text
+[1, 2, 3]
+None
+```
+
+`sorted()` creates and returns a new sorted result:
+
+```python
+numbers = [3, 1, 2]
+
+result = sorted(numbers)
+
+print(numbers)
+print(result)
+```
+
+Output:
+
+```text
+[3, 1, 2]
+[1, 2, 3]
+```
+
+</details>
+
+---
+
+### Q6. A list contains nested lists. Is `copy()` a deep copy?
+
+<details>
+<summary><strong>Answer</strong></summary>
+
+No. `copy()` creates a **shallow copy**.
+
+The outer list is copied, but nested mutable objects can still be shared.
+
+```python
+original = [[1, 2], [3, 4]]
+copy_list = original.copy()
+
+copy_list[0].append(99)
+
+print(original)
+print(copy_list)
+```
+
+Both can show the changed nested list because the inner list is shared.
+
+For a true deep copy of nested structures, Python provides `copy.deepcopy()`.
+
+</details>
+
+---
+
+### Q7. You need both the position and value while traversing a list. Would you use a normal `for value in list` loop?
+
+<details>
+<summary><strong>Answer</strong></summary>
+
+A normal loop gives the value directly, but not the index.
+
+You can use `enumerate()` when both are required:
+
+```python
+languages = ["Python", "SQL", "Snowflake"]
+
+for index, language in enumerate(languages):
+    print(index, language)
+```
+
+Output:
+
+```text
+0 Python
+1 SQL
+2 Snowflake
+```
+
+`enumerate()` is generally clearer than manually using `range(len(list))`.
+
+</details>
+
+---
+
+### Q8. A pipeline receives a very large file. Why might repeatedly using `append()` to build one huge list be a problem?
+
+<details>
+<summary><strong>Answer</strong></summary>
+
+Repeatedly appending records to one large list means the records remain in memory until the list is released.
+
+For a large file, this can lead to high memory consumption and potentially an out-of-memory failure.
+
+A scalable pipeline may instead process the data in **batches**, stream records, or use generators so that the entire dataset does not need to remain in memory at once.
+
+The key Data Engineering consideration is not whether `append()` works, but whether the chosen in-memory data structure scales with the dataset size.
+
+</details>
 
 ---
 
@@ -1138,7 +1341,7 @@ For large-scale processing, Data Engineers may use:
 - Distributed processing
 
 > [!IMPORTANT]
-> Learning lists is not only about syntax. As a Data Engineer, you should also understand when an in-memory list is appropriate and when the dataset is too large for this approach.
+> Learning lists is not only about syntax. As a Data Engineer, you should understand when an in-memory list is appropriate and when the dataset is too large for this approach.
 
 ---
 
