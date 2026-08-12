@@ -65,7 +65,6 @@ Lists are extremely important for Data Engineering because Python programs frequ
 - [22. Common Mistakes](#22-common-mistakes)
 - [23. Interview Questions](#23-interview-questions)
 - [24. Data Engineering Perspective](#24-data-engineering-perspective)
-- [25. Summary](#25-summary)
 
 ---
 
@@ -188,7 +187,7 @@ Result:
 ```
 
 > [!NOTE]
-> `list()` does not magically convert any object into a useful list. The object must be iterable for normal list construction.
+> `list()` creates a list from an iterable. The iterable is processed element by element.
 
 ---
 
@@ -231,14 +230,6 @@ Output:
 10
 ```
 
-Why?
-
-```text
-numbers[0]
-       ↓
-      10
-```
-
 Similarly:
 
 ```python
@@ -263,38 +254,11 @@ Positive indexing starts from the **left side** of the list and begins at `0`.
 ```text
 numbers = [10, 20, 30, 40, 50]
 
-             Positive Index
-Value:       10   20   30   40   50
-Index:        0    1    2    3    4
+Value:  10   20   30   40   50
+Index:   0    1    2    3    4
 ```
 
-Therefore:
-
-```python
-print(numbers[0])
-```
-
-prints:
-
-```text
-10
-```
-
-And:
-
-```python
-print(numbers[4])
-```
-
-prints:
-
-```text
-50
-```
-
-### Finding the Last Element with Positive Indexing
-
-For a list of length `5`, the last index is `4`.
+For a list of length `5`, the last positive index is `4`.
 
 In general:
 
@@ -307,18 +271,16 @@ Example:
 ```python
 numbers = [10, 20, 30, 40, 50]
 
-print(len(numbers))
-print(numbers[len(numbers) - 1])
+print(numbers[0])
+print(numbers[4])
 ```
 
 Output:
 
 ```text
-5
+10
 50
 ```
-
-However, Python provides a much easier way to access the last element: **negative indexing**.
 
 ---
 
@@ -337,8 +299,6 @@ Negative:   -4    -3    -2    -1
 The last element always has index `-1`.
 
 ```python
-numbers = [10, 20, 30, 40]
-
 print(numbers[-1])
 ```
 
@@ -360,23 +320,7 @@ Output:
 30
 ```
 
-### Why is Negative Indexing Useful?
-
-Suppose we don't know the length of a list but need its last element.
-
-Instead of:
-
-```python
-numbers[len(numbers) - 1]
-```
-
-we can simply write:
-
-```python
-numbers[-1]
-```
-
-This is cleaner and easier to read.
+Negative indexing is useful when we want elements from the end without calculating the list length.
 
 ---
 
@@ -402,13 +346,6 @@ Consider:
 numbers = [10, 20, 30, 40, 50]
 ```
 
-Indexes:
-
-```text
-Value:  10   20   30   40   50
-Index:   0    1    2    3    4
-```
-
 Now:
 
 ```python
@@ -421,16 +358,7 @@ Output:
 [20, 30, 40]
 ```
 
-Notice that index `4` is **not included**.
-
-So:
-
-```text
-start = 1 → include 20
-2         → include 30
-3         → include 40
-4         → stop before 50
-```
+Index `4` is not included.
 
 ## 6.1 Omitting Start
 
@@ -444,8 +372,6 @@ Output:
 [10, 20, 30]
 ```
 
-This means: start from the beginning and stop before index `3`.
-
 ## 6.2 Omitting Stop
 
 ```python
@@ -457,8 +383,6 @@ Output:
 ```text
 [30, 40, 50]
 ```
-
-This means: start at index `2` and continue to the end.
 
 ## 6.3 Using a Step
 
@@ -472,9 +396,7 @@ Output:
 [10, 30, 50]
 ```
 
-The step `2` means we move two positions at a time.
-
-## 6.4 Reversing a List with Slicing
+## 6.4 Reversing with Slicing
 
 ```python
 print(numbers[::-1])
@@ -492,7 +414,7 @@ A step of `-1` moves from right to left.
 
 # 7. Updating List Elements
 
-One of the major differences between a list and an immutable data type such as a string is that we can **change an existing list element**.
+Lists allow us to change existing elements because they are mutable.
 
 Consider:
 
@@ -500,9 +422,7 @@ Consider:
 numbers = [10, 20, 30]
 ```
 
-Suppose we want to change `20` to `200`.
-
-We can use its index:
+To change `20` to `200`:
 
 ```python
 numbers[1] = 200
@@ -520,10 +440,6 @@ Output:
 [10, 200, 30]
 ```
 
-The element at index `1` was replaced.
-
-### Updating Multiple Elements
-
 We can also replace a slice:
 
 ```python
@@ -540,9 +456,6 @@ Output:
 [10, 200, 300, 40]
 ```
 
-> [!IMPORTANT]
-> Assignment to a list index or slice changes the existing list object. This is one of the key consequences of list mutability.
-
 ---
 
 # 8. Lists are Mutable
@@ -550,8 +463,6 @@ Output:
 **Mutable** means an object can be changed after it has been created.
 
 Lists are mutable.
-
-Example:
 
 ```python
 numbers = [10, 20, 30]
@@ -566,8 +477,6 @@ Output:
 ```text
 [100, 20, 30]
 ```
-
-We did not create a completely new list just to change the first value. We modified an existing element of the list.
 
 ### Compare with a String
 
@@ -606,15 +515,11 @@ Now the list becomes:
 
 # 9. Adding Elements
 
-Python provides several ways to add elements to a list.
-
-The most important ones are:
+Python provides three important ways to add elements:
 
 - `append()`
 - `insert()`
 - `extend()`
-
----
 
 ## 9.1 `append()`
 
@@ -634,15 +539,7 @@ Output:
 [10, 20, 30]
 ```
 
-Think of `append()` as:
-
-```text
-Add this one thing to the end.
-```
-
-### Appending a List
-
-This is an important interview concept:
+If we append a list, the entire list becomes one element:
 
 ```python
 numbers = [1, 2]
@@ -657,18 +554,6 @@ Output:
 ```text
 [1, 2, [3, 4]]
 ```
-
-The entire `[3, 4]` becomes **one element**.
-
-The resulting structure is:
-
-```text
-1
-2
-[3, 4]  ← one element
-```
-
----
 
 ## 9.2 `insert()`
 
@@ -696,15 +581,11 @@ Output:
 [10, 15, 20, 30]
 ```
 
-The value `15` was inserted at index `1`.
-
-The existing elements are shifted to the right.
-
----
+The existing elements shift to the right.
 
 ## 9.3 `extend()`
 
-`extend()` adds elements from another iterable to the end of the list.
+`extend()` adds elements from another iterable individually.
 
 ```python
 numbers = [1, 2]
@@ -719,56 +600,27 @@ Output:
 ```text
 [1, 2, 3, 4]
 ```
-
-Unlike `append()`, the elements `3` and `4` are added separately.
 
 ### `append()` vs `extend()`
 
-```python
-numbers = [1, 2]
-
-numbers.append([3, 4])
-print(numbers)
-```
-
-Output:
-
 ```text
-[1, 2, [3, 4]]
-```
-
-But:
-
-```python
-numbers = [1, 2]
-
-numbers.extend([3, 4])
-print(numbers)
-```
-
-Output:
-
-```text
-[1, 2, 3, 4]
+append([3, 4]) → [1, 2, [3, 4]]
+extend([3, 4]) → [1, 2, 3, 4]
 ```
 
 > [!TIP]
-> Interviewers commonly ask **`append()` vs `extend()`**. Remember: `append()` adds one object; `extend()` adds elements from an iterable.
+> A common interview question is **`append()` vs `extend()`**. Remember: `append()` adds one object; `extend()` adds elements from an iterable.
 
 ---
 
 # 10. Removing Elements
 
-Python provides several ways to remove data from a list:
+Python provides several ways to remove elements:
 
 - `remove()`
 - `pop()`
 - `del`
 - `clear()`
-
-The important difference is **how they identify what should be removed**.
-
----
 
 ## 10.1 `remove()`
 
@@ -788,15 +640,11 @@ Output:
 [10, 30, 20]
 ```
 
-Only the first `20` was removed.
-
 If the value does not exist, Python raises `ValueError`.
-
----
 
 ## 10.2 `pop()`
 
-`pop()` removes an element using its **index** and returns the removed value.
+`pop()` removes an element by index and returns the removed value.
 
 ```python
 numbers = [10, 20, 30]
@@ -814,7 +662,7 @@ Output:
 [10, 30]
 ```
 
-If no index is supplied, `pop()` removes the last element:
+Without an index, `pop()` removes the last element:
 
 ```python
 numbers = [10, 20, 30]
@@ -832,15 +680,9 @@ Output:
 [10, 20]
 ```
 
-This is why `pop()` is useful when we need **both the removal and the removed value**.
-
----
-
 ## 10.3 `del`
 
-`del` is a Python statement that can delete an element, a slice, or even a variable.
-
-Delete one element:
+`del` can delete an element or a slice.
 
 ```python
 numbers = [10, 20, 30]
@@ -856,27 +698,9 @@ Output:
 [10, 30]
 ```
 
-Delete a slice:
-
-```python
-numbers = [10, 20, 30, 40, 50]
-
-del numbers[1:4]
-
-print(numbers)
-```
-
-Output:
-
-```text
-[10, 50]
-```
-
----
-
 ## 10.4 `clear()`
 
-`clear()` removes **all elements** from the list.
+`clear()` removes every element while keeping the list itself.
 
 ```python
 numbers = [10, 20, 30]
@@ -892,11 +716,7 @@ Output:
 []
 ```
 
-The list still exists, but it contains no elements.
-
----
-
-## Removal Methods Comparison
+### Removal Comparison
 
 | Operation | Removes by | Returns removed value? |
 |---|---|---|
@@ -909,13 +729,9 @@ The list still exists, but it contains no elements.
 
 # 11. Useful Built-in Functions
 
-Python provides several built-in functions that work with lists.
+## `len()`
 
----
-
-## 11.1 `len()`
-
-`len()` returns the number of elements in a list.
+Returns the number of elements.
 
 ```python
 numbers = [10, 20, 30, 40]
@@ -929,13 +745,9 @@ Output:
 4
 ```
 
-The list has four elements, so `len()` returns `4`.
+## `max()`
 
----
-
-## 11.2 `max()`
-
-`max()` returns the largest value.
+Returns the largest value.
 
 ```python
 numbers = [10, 50, 20, 40]
@@ -949,11 +761,9 @@ Output:
 50
 ```
 
----
+## `min()`
 
-## 11.3 `min()`
-
-`min()` returns the smallest value.
+Returns the smallest value.
 
 ```python
 print(min(numbers))
@@ -965,11 +775,9 @@ Output:
 10
 ```
 
----
+## `sum()`
 
-## 11.4 `sum()`
-
-`sum()` adds numeric values together.
+Returns the total of numeric elements.
 
 ```python
 numbers = [10, 20, 30]
@@ -983,38 +791,31 @@ Output:
 60
 ```
 
-> [!NOTE]
-> `sum()` is intended for numeric values and compatible types. It is not a general-purpose way to concatenate strings.
-
 ---
 
 # 12. Useful List Methods
 
-Here are the most important list methods for beginner and interview preparation:
-
 | Method | Purpose |
 |---|---|
 | `append()` | Add one object at the end |
-| `insert()` | Add an object at a specific position |
+| `insert()` | Add an object at a position |
 | `extend()` | Add elements from an iterable |
 | `remove()` | Remove the first matching value |
 | `pop()` | Remove and return an element |
 | `clear()` | Remove all elements |
 | `index()` | Find the first matching index |
-| `count()` | Count occurrences of a value |
+| `count()` | Count occurrences |
 | `sort()` | Sort the list in place |
 | `reverse()` | Reverse the list in place |
 | `copy()` | Create a shallow copy |
-
-We will understand the important ones through examples in `examples.py`.
 
 ---
 
 # 13. Traversing a List
 
-**Traversing** means visiting each element of a list one by one.
+**Traversing** means visiting each element one by one.
 
-The most common way is a `for` loop.
+The most common approach is a `for` loop:
 
 ```python
 languages = ["Python", "SQL", "Snowflake"]
@@ -1031,23 +832,9 @@ SQL
 Snowflake
 ```
 
-Python automatically gives each element to the variable `language` during each iteration.
-
-The flow is:
-
-```text
-First iteration  → language = "Python"
-Second iteration → language = "SQL"
-Third iteration  → language = "Snowflake"
-```
-
-### Traversing with Indexes
-
-Sometimes we need both the index and the value.
+We can also use indexes:
 
 ```python
-languages = ["Python", "SQL", "Snowflake"]
-
 for index in range(len(languages)):
     print(index, languages[index])
 ```
@@ -1060,39 +847,27 @@ Output:
 2 Snowflake
 ```
 
-Later, we will learn `enumerate()` as a cleaner way to get both index and value.
-
 ---
 
 # 14. Searching in a List
 
-We can use the `in` operator to check whether a value exists in a list.
+The `in` operator checks whether a value exists.
 
 ```python
 languages = ["Python", "SQL", "Snowflake"]
 
 print("Python" in languages)
-```
-
-Output:
-
-```text
-True
-```
-
-For a value that does not exist:
-
-```python
 print("Java" in languages)
 ```
 
 Output:
 
 ```text
+True
 False
 ```
 
-We can also use `not in`:
+`not in` checks that a value does not exist:
 
 ```python
 print("Java" not in languages)
@@ -1104,11 +879,11 @@ Output:
 True
 ```
 
-### Finding an Index with `index()`
+### `index()`
+
+`index()` returns the position of the first matching value.
 
 ```python
-languages = ["Python", "SQL", "Snowflake"]
-
 print(languages.index("SQL"))
 ```
 
@@ -1118,18 +893,14 @@ Output:
 1
 ```
 
-`index()` returns the position of the first matching element.
-
 > [!WARNING]
-> `index()` raises `ValueError` if the value is not present. The `in` operator is safer when you only want to check existence.
+> `index()` raises `ValueError` when the value is not present. Use `in` when you only need to check existence.
 
 ---
 
 # 15. Nested Lists
 
 A list can contain other lists. This is called a **nested list**.
-
-Example:
 
 ```python
 matrix = [
@@ -1139,37 +910,21 @@ matrix = [
 ]
 ```
 
-Think of it as:
-
-```text
-matrix
-  │
-  ├── [1, 2, 3]
-  ├── [4, 5, 6]
-  └── [7, 8, 9]
-```
-
 To access `5`:
 
 ```python
 print(matrix[1][1])
 ```
 
-Why?
+Output:
 
 ```text
-matrix[1]     → [4, 5, 6]
-
-matrix[1][1]  → 5
+5
 ```
 
-The first index selects the inner list.
+The first index selects the inner list, and the second index selects the element inside it.
 
-The second index selects an element from that inner list.
-
-### Traversing a Nested List
-
-We can use nested loops:
+Nested lists can be traversed using nested loops:
 
 ```python
 for row in matrix:
@@ -1177,17 +932,11 @@ for row in matrix:
         print(value)
 ```
 
-This visits every value in the matrix.
-
-Nested structures are important when working with hierarchical or tabular data represented in Python.
-
 ---
 
 # 16. Copying Lists
 
-Copying lists is an important topic because lists are mutable.
-
-Consider:
+Because lists are mutable, copying them correctly is important.
 
 ```python
 x = [1, 2, 3]
@@ -1210,20 +959,13 @@ Output:
 [1, 2, 3, 4]
 ```
 
-Changing `y` did not change `x`.
+This is a **shallow copy**.
 
-This is called a **shallow copy**.
-
-For ordinary one-level lists, this is often exactly what we need.
-
-> [!IMPORTANT]
-> Shallow copying becomes more subtle when a list contains nested mutable objects. We will study shallow vs deep copy in more detail later.
+For a simple one-level list, modifying the copied list does not modify the original list.
 
 ---
 
 # 17. List Assignment vs Copy
-
-This is a very common Python interview question.
 
 Consider:
 
@@ -1232,9 +974,9 @@ x = [1, 2, 3]
 y = x
 ```
 
-It may look like a copy, but it is **not a new list**.
+This does **not** create a new list. Both variables refer to the same object.
 
-Both variables refer to the same list object.
+Conceptually:
 
 ```text
 x ─────┐
@@ -1247,9 +989,6 @@ x ─────┐
 Therefore:
 
 ```python
-x = [1, 2, 3]
-y = x
-
 y.append(4)
 
 print(x)
@@ -1263,33 +1002,19 @@ Output:
 [1, 2, 3, 4]
 ```
 
-Changing `y` also affects what we see through `x` because both variables reference the same object.
-
-### Creating a Separate List
-
-Use:
+To create a separate shallow copy:
 
 ```python
 y = x.copy()
 ```
 
-or:
-
-```python
-y = x[:]
-```
-
-Now the outer list is different.
-
-This distinction between **assignment and copying** is important for Python interviews and for avoiding accidental data modification in real programs.
+This distinction is important in Python interviews and when preventing accidental changes to data.
 
 ---
 
 # 18. Sorting Lists
 
-The `sort()` method sorts a list **in place**.
-
-Example:
+`sort()` sorts a list **in place**.
 
 ```python
 numbers = [50, 10, 40, 20, 30]
@@ -1305,25 +1030,13 @@ Output:
 [10, 20, 30, 40, 50]
 ```
 
-### Descending Order
-
-Use `reverse=True`:
+For descending order:
 
 ```python
 numbers.sort(reverse=True)
-
-print(numbers)
 ```
 
-Output:
-
-```text
-[50, 40, 30, 20, 10]
-```
-
-### Important: `sort()` Returns `None`
-
-A common mistake is:
+### `sort()` Returns `None`
 
 ```python
 numbers = [3, 1, 2]
@@ -1339,11 +1052,11 @@ Output:
 None
 ```
 
-Why?
+`sort()` modifies the original list instead of returning a new sorted list.
 
-Because `sort()` changes the existing list and does not return the sorted list.
+### `sorted()`
 
-If we want a **new sorted list**, we can use the built-in `sorted()` function:
+`sorted()` returns a new sorted result:
 
 ```python
 numbers = [3, 1, 2]
@@ -1351,35 +1064,30 @@ numbers = [3, 1, 2]
 result = sorted(numbers)
 
 print(result)
+print(numbers)
 ```
 
 Output:
 
 ```text
 [1, 2, 3]
+[3, 1, 2]
 ```
-
-The original `numbers` list remains unchanged.
 
 ### `sort()` vs `sorted()`
 
 | `sort()` | `sorted()` |
 |---|---|
 | List method | Built-in function |
-| Changes the original list | Returns a new sorted object |
+| Changes original list | Returns a new sorted result |
 | Returns `None` | Returns sorted result |
-| Used with lists | Can work with many iterables |
-
-> [!TIP]
-> This difference is frequently asked in Python interviews.
+| Used directly on lists | Works with many iterables |
 
 ---
 
 # 19. Reversing Lists
 
-There are multiple ways to reverse a list.
-
-### Using `reverse()`
+## Using `reverse()`
 
 ```python
 numbers = [1, 2, 3, 4]
@@ -1395,9 +1103,9 @@ Output:
 [4, 3, 2, 1]
 ```
 
-`reverse()` changes the original list.
+`reverse()` modifies the original list.
 
-### Using Slicing
+## Using Slicing
 
 ```python
 numbers = [1, 2, 3, 4]
@@ -1415,25 +1123,11 @@ Output:
 
 Here a new list is created.
 
-### Using `reversed()`
-
-```python
-numbers = [1, 2, 3, 4]
-
-reversed_numbers = list(reversed(numbers))
-
-print(reversed_numbers)
-```
-
-`reversed()` returns an iterator, so `list()` can be used when we want an actual list.
-
 ---
 
 # 20. List Unpacking
 
-List unpacking allows us to assign elements of a list to multiple variables.
-
-Example:
+List unpacking assigns elements to multiple variables.
 
 ```python
 numbers = [10, 20, 30]
@@ -1448,24 +1142,6 @@ a = 10
 b = 20
 c = 30
 ```
-
-We can verify:
-
-```python
-print(a)
-print(b)
-print(c)
-```
-
-Output:
-
-```text
-10
-20
-30
-```
-
-The number of variables normally needs to match the number of elements.
 
 Python also supports starred unpacking:
 
@@ -1483,8 +1159,6 @@ middle = [20, 30, 40]
 last   = 50
 ```
 
-List unpacking becomes especially useful when processing structured data.
-
 ---
 
 # 21. List vs Tuple
@@ -1496,10 +1170,9 @@ Lists and tuples are both ordered collections, but their mutability is different
 | Mutable | Immutable |
 | Uses `[]` | Uses `()` |
 | Elements can be changed | Elements cannot be changed |
-| Usually used for changing collections | Useful for fixed collections |
-| Generally larger/more flexible structure | Generally more lightweight for fixed data |
+| Useful for changing collections | Useful for fixed collections |
 
-Example list:
+Example:
 
 ```python
 numbers = [10, 20, 30]
@@ -1508,66 +1181,36 @@ numbers[0] = 100
 
 This works.
 
-Example tuple:
+But:
 
 ```python
 numbers = (10, 20, 30)
 numbers[0] = 100
 ```
 
-This raises `TypeError` because tuples are immutable.
+raises `TypeError` because tuples are immutable.
 
-We will study tuples in detail in **Day 15**.
+Tuples will be covered in detail in **Day 15**.
 
 ---
 
 # 22. Common Mistakes
 
-## Mistake 1: Using the Wrong Index
+## Mistake 1: Invalid Index
 
 ```python
 numbers = [10, 20]
-
 print(numbers[2])
 ```
 
-Valid indexes are only `0` and `1`.
-
-Therefore Python raises:
-
-```text
-IndexError: list index out of range
-```
-
----
+Valid indexes are `0` and `1`, so Python raises `IndexError`.
 
 ## Mistake 2: Confusing `append()` and `extend()`
 
-```python
-numbers = [1, 2]
-numbers.append([3, 4])
-```
-
-Result:
-
 ```text
-[1, 2, [3, 4]]
+append([3, 4]) → [1, 2, [3, 4]]
+extend([3, 4]) → [1, 2, 3, 4]
 ```
-
-But:
-
-```python
-numbers = [1, 2]
-numbers.extend([3, 4])
-```
-
-Result:
-
-```text
-[1, 2, 3, 4]
-```
-
----
 
 ## Mistake 3: Assuming `y = x` Creates a Copy
 
@@ -1576,7 +1219,7 @@ x = [1, 2, 3]
 y = x
 ```
 
-This creates another reference to the same list.
+Both variables refer to the same list.
 
 Use:
 
@@ -1584,17 +1227,13 @@ Use:
 y = x.copy()
 ```
 
-when you need a separate shallow copy.
-
----
+for a separate shallow copy.
 
 ## Mistake 4: Expecting `sort()` to Return a List
 
 ```python
 numbers = [3, 1, 2]
-
 result = numbers.sort()
-
 print(result)
 ```
 
@@ -1606,13 +1245,10 @@ None
 
 Use `sorted(numbers)` when you want a new sorted result.
 
----
-
-## Mistake 5: Forgetting That Slice Stop is Exclusive
+## Mistake 5: Forgetting that Slice Stop is Exclusive
 
 ```python
 numbers = [10, 20, 30, 40]
-
 print(numbers[1:3])
 ```
 
@@ -1650,12 +1286,7 @@ Both variables reference the same list object. No separate list is created.
 
 ### Q6. How do you create a shallow copy of a list?
 
-Common methods include:
-
-```python
-copy_1 = original.copy()
-copy_2 = original[:]
-```
+Use `x.copy()` or slicing such as `x[:]`.
 
 ### Q7. What is the difference between `sort()` and `sorted()`?
 
@@ -1683,7 +1314,7 @@ numbers[-1]
 
 ### Q12. What is list slicing?
 
-List slicing extracts a portion of a list using the syntax:
+List slicing extracts a portion of a list using:
 
 ```text
 list[start:stop:step]
@@ -1713,8 +1344,6 @@ Lists are used frequently in Python-based Data Engineering workflows, especially
 
 ## 24.1 Storing Column Names
 
-Suppose we are reading customer data and need to work with selected columns:
-
 ```python
 columns = [
     "customer_id",
@@ -1724,13 +1353,9 @@ columns = [
 ]
 ```
 
-A list makes it easy to iterate through the column names or pass them to another function.
-
----
+A list makes it easy to iterate through column names or pass them to another function.
 
 ## 24.2 Storing File Names
-
-A pipeline may collect files that need to be processed:
 
 ```python
 files = [
@@ -1747,8 +1372,6 @@ for file in files:
     print(file)
 ```
 
----
-
 ## 24.3 Storing Validation Errors
 
 During data validation, we may collect errors:
@@ -1760,15 +1383,11 @@ errors.append("Missing customer_id")
 errors.append("Invalid email")
 ```
 
-At the end:
+The list can then contain:
 
 ```text
 ["Missing customer_id", "Invalid email"]
 ```
-
-This is a simple example of using a mutable list as an accumulator.
-
----
 
 ## 24.4 Holding Records Before Database Loading
 
@@ -1784,37 +1403,13 @@ records = [
 
 The list contains multiple tuples, where each tuple represents one record.
 
-This type of structure is commonly encountered when preparing batches of records for database operations.
+## 24.5 Memory Consideration
 
----
-
-## 24.5 Important Data Engineering Consideration
-
-Although lists are useful, they store their elements in memory.
+Lists store their elements in memory.
 
 For a very large dataset, loading every record into one Python list can consume significant memory.
 
-For example, conceptually:
-
-```text
-Small dataset
-    ↓
-Python list
-    ↓
-Usually manageable
-```
-
-But:
-
-```text
-Very large dataset
-    ↓
-Entire dataset in one list
-    ↓
-High memory usage
-```
-
-For large-scale processing, Data Engineers may use techniques such as:
+For large-scale processing, Data Engineers may use:
 
 - Generators
 - Iterators
@@ -1823,78 +1418,8 @@ For large-scale processing, Data Engineers may use techniques such as:
 - DataFrame processing
 - Distributed processing
 
-We will encounter several of these concepts later in the Python journey.
-
 > [!IMPORTANT]
 > Knowing the syntax of lists is not enough for a Data Engineer. You should also understand when keeping data in an in-memory Python list is appropriate and when it can become a scalability problem.
-
----
-
-# 25. Summary
-
-A Python list is an **ordered and mutable collection**.
-
-The most important concepts from Day 14 are:
-
-```text
-List
- ↓
-Create
- ↓
-Index
- ↓
-Slice
- ↓
-Modify
- ↓
-Add
- ↓
-Remove
- ↓
-Search
- ↓
-Traverse
- ↓
-Copy
- ↓
-Sort / Reverse
- ↓
-Use in Data Engineering
-```
-
-After completing Day 14, you should be able to:
-
-- Explain what a list is.
-- Create empty and non-empty lists.
-- Store different data types in a list.
-- Use positive indexing.
-- Use negative indexing.
-- Slice a list.
-- Explain why lists are mutable.
-- Update list elements.
-- Use `append()`, `insert()`, and `extend()`.
-- Use `remove()`, `pop()`, `del`, and `clear()`.
-- Use `len()`, `max()`, `min()`, and `sum()`.
-- Traverse lists with loops.
-- Search lists using `in` and `not in`.
-- Work with nested lists.
-- Understand assignment vs copying.
-- Create shallow copies.
-- Sort and reverse lists.
-- Explain `sort()` vs `sorted()`.
-- Explain list vs tuple.
-- Apply lists to simple Data Engineering scenarios.
-
----
-
-## Files in This Day
-
-```text
-Day_14_Lists/
-├── readme.md      → Concepts and detailed explanations
-├── examples.py    → Commented examples with step-by-step code
-└── practice.py    → Exercises to solve independently
-```
 
 ---
 
